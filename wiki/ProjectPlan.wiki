@@ -9,11 +9,11 @@ Add your content here.
 
 
 Prior to May 25
-*Get dev tools running on my laptop
-**Install php/apache/Postgres/graphviz
-***Import data and schema from treetapper
-** set up Emacs to handle php files
-** learn how to use svn
+  *Get dev tools running on my laptop
+  **Install php/apache/Postgres/graphviz
+  ***Import data and schema from treetapper
+  ** set up Emacs to handle php files
+  ** learn how to use svn
 
 
 May 25-31
