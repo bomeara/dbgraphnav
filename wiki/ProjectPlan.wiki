@@ -19,89 +19,89 @@ Prior to May 25
 May 25-31
 
   * focus on design document
-  ** Write a clean above the line view
-  ** Start on below the line view
-  ** Design user interface for building extensible queries
-  *** How do users indicate interconnected data?
-  ** What embedding options should be offered and how do they work?
-  *** iframe?
-  *** ajax?
-  *** image + map?
-  ** Begin documenting software requirements
-  *** php5+
-  *** supported DB system
-  ** Think about DB security.
+    * Write a clean above the line view
+    * Start on below the line view
+    * Design user interface for building extensible queries
+      * How do users indicate interconnected data?
+    * What embedding options should be offered and how do they work?
+      * iframe?
+      * ajax?
+      * image + map?
+    * Begin documenting software requirements
+      * php5+
+      * supported DB system
+    * Think about DB security.
   * Research DB abstraction layers for php
-  ** Is ADOdb the right one?
-  ** are there newer ones?
-  ** learn about the chosen one
+    * Is ADOdb the right one?
+    * are there newer ones?
+    * learn about the chosen one
   * User Survey
 
 June 1-7
 
   * Design
-  ** Figure out how to limit the quantity of data retrieved
-  *** how do we deal with an over-connected node?
+    * Figure out how to limit the quantity of data retrieved
+      * how do we deal with an over-connected node?
                       # Should this be user configurable?
-  ** Think about how best to manage multi-server setups, start documenting this
-  ** Continue fleshing out below the line view
-  ** Document choices regarding caching of results, and keeping the cache within a specified size
-  ** Integration and callback
-  *** How does the person installing my application get the info back to their application?
-  *** How is this configured?
-  *** Will integrators pass their own data through my code, or will it get passed externally?
-  ** Milestone: Answers to the above questions
+    * Think about how best to manage multi-server setups, start documenting this
+    * Continue fleshing out below the line view
+    * Document choices regarding caching of results, and keeping the cache within a specified size
+    * Integration and callback
+      * How does the person installing my application get the info back to their application?
+      * How is this configured?
+      * Will integrators pass their own data through my code, or will it get passed externally?
+    * Milestone: Answers to the above questions
   * Figure out how best to make php interact with Graphviz
-  ** How best to pass the dot file to Graphviz?
-  ** Should I be piping the file results directly to php?
-  ** saving them to disk and then reading them?
-  ** Start figuring out how result caching is going to work
-  *** Write to file or to DB?
-  *** Does php write the file?
-  *** Does graphviz write it?
-  *** How is it named for easy later retrieval?
-  ** Milestone: Work out example code for whatever I decide is the best method for interaction
+    * How best to pass the dot file to Graphviz?
+    * Should I be piping the file results directly to php?
+    * saving them to disk and then reading them?
+    * Start figuring out how result caching is going to work
+      * Write to file or to DB?
+      * Does php write the file?
+      * Does graphviz write it?
+      * How is it named for easy later retrieval?
+    * Milestone: Work out example code for whatever I decide is the best method for interaction
   * Begin work on PHP application framework
-  ** Request handling
-  ** Database connection
-  ** database interaction abstractions
+    * Request handling
+    * Database connection
+    * database interaction abstractions
 
 June 8-14
 
   * Design
-  ** Write pseudo instructions for integrators
-  ** Finish any holes in the design document
-  ** Clean the Design Document up, double check consistency throughout
-  ** Milestone: Tentative design doc completion / approval
+    * Write pseudo instructions for integrators
+    * Finish any holes in the design document
+    * Clean the Design Document up, double check consistency throughout
+    * Milestone: Tentative design doc completion / approval
   * Work on PHP application framework
-  ** Object classes
-  ** Continue filling in areas that need work
+    * Object classes
+    * Continue filling in areas that need work
   * Begin core application
-  ** Implement simple integrator interface (probably php config file at this stage)
-  ** Get SQL queries returning correct data
-  ** Implement SQL query limiting solution
-  ** Begin work on mapping result relationships
+    * Implement simple integrator interface (probably php config file at this stage)
+    * Get SQL queries returning correct data
+    * Implement SQL query limiting solution
+    * Begin work on mapping result relationships
 
 
 June 15-21
 
   * Design
-  ** Write formal integration guidelines and interface specifications
+    * Write formal integration guidelines and interface specifications
   * Core
-  ** Finish SQL result relationship mapping code
-  ** Make sure that results are smoothly transitioning into the result object as designed
-  **
+    * Finish SQL result relationship mapping code
+    * Make sure that results are smoothly transitioning into the result object as designed
+    *
 
 
 
 Weekly Tasks:
 
   * Monday
-  ** Send project status update to list
-  *** Accomplishments
-  *** Goals for next week
+    * Send project status update to list
+      * Accomplishments
+      * Goals for next week
   * Friday
-  ** Extend detailed project plan by at least 1 week
-  ** Make sure Design Doc is not self-contradictory
+    * Extend detailed project plan by at least 1 week
+    * Make sure Design Doc is not self-contradictory
 
 = Overview =
