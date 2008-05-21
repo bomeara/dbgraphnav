@@ -1,0 +1,12 @@
+#summary Miscellaneous project notes.
+
+= Introduction =
+
+Whatever goes here is something that needed to go somewhere.
+
+
+= Details =
+
+
+Ajax options:
+what about a link to the current document using # notation?
