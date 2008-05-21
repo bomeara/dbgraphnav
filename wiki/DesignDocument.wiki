@@ -2,11 +2,12 @@
 
 = Introduction =
 
-This document will contain both a project overview and specific information regarding how each aspect will be implemented. When complete, this should guide coding with specific information.
+This document contains both a project overview and specific information regarding how each aspect is implemented. When complete, this should guide coding with specific information and guidelines.
 
-DBGraphNav is 
-
-= Above the Line =
+DBGraphNav is a tool to facilitate the browsing of relational databases. When integrated into another project, it allows users to view a graphical representation of the relationships between database entries, and to browse them by clicking on a node or connecting line to re-center the graph.
 
 
-= Below the Line =
+= High Level =
+
+
+= Low Level =
