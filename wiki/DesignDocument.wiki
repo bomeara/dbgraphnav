@@ -6,6 +6,9 @@ This document contains both a project overview and specific information regardin
 
 DBGraphNav is a tool to facilitate the browsing of relational databases. When integrated into another project, it allows users to view a graphical representation of the relationships between database entries, and to browse them by clicking on a node or connecting line to re-center the graph.
 
+= Current Issues =
+
+This section contains current pressing issues that need to be resolved soon. They should be removed when they are resolved.
 
 = High Level =
 
