@@ -105,3 +105,36 @@ Weekly Tasks:
     * Make sure Design Doc is not self-contradictory
 
 = Overview =
+
+-May 26-
+Concentrate on design document. Work on solving the the hard problems. (extensibility, limiting the amount of data retrieved, how to handle where links go, how to handle embedding, what configuration options are appropriate?)
+Begin coding project framework (basic SQL connections, http interface, etc.).
+Get comfortable with coding and working with each of the relevant tools.
+
+-June 9-
+Get design doc approval, or develop specific plan to finish areas that still need work.
+Start coding core application.
+
+-July 7-
+SQL data selection/limitation functional (http requests retrieve the appropriate data from the DB)
+Demonstrable progress toward key areas of core functionality:
+SQL results->dot file
+dot file-> graphic/imagemap
+Followup URL generation working properly (i.e. clicking an image actually takes the user to the appropriate next node)
+Correct External app URL retrieval (the app interacts correctly with the application it is being used within)
+
+-July 28-
+Tentative core project completion date. This includes security against SQL injection attacks.
+Begin work on extra non-core features such as the following:
+Write further documentation on modification of the appropriate SQL statements to customize the project for other databases
+Improve efficiency/response time, using techniques such as caching and predictive lookup
+Design and implement database templating system
+Develop working examples for database other frameworks such as CakePHP or BioSQL
+Document and implement necessary changes for moving image generation to a different server for first order load balancing
+Further configurable options (i.e. links to graphs with more nodes, easy filtering of the data types returned, etc.)
+
+-August 11-
+Stop active development of new features.
+Finish any in-progress features.
+Bug-test, complete documentation.
+Work with any initial deployments to improve quality of integration.
