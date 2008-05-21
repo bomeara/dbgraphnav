@@ -1,0 +1,108 @@
+#summary Detailed and overview timelines.
+
+= Introduction =
+
+Add your content here.
+
+
+= Detailed Plan =
+
+
+Prior to May 25
+
+    * Get dev tools running on my laptop
+          o Install php/apache/Postgres/graphviz
+                + Import data and schema from treetapper
+          o set up Emacs to handle php files
+          o learn how to use svn
+
+
+May 25-31
+
+    * focus on design document
+          o Write a clean above the line view
+          o Start on below the line view
+          o Design user interface for building extensible queries
+                + How do users indicate interconnected data?
+          o What embedding options should be offered and how do they work?
+                + iframe?
+                + ajax?
+                + image + map?
+          o Begin documenting software requirements
+                + php5+
+                + supported DB system
+          o Think about DB security.
+    * Research DB abstraction layers for php
+          o Is ADOdb the right one?
+          o are there newer ones?
+          o learn about the chosen one
+    * User Survey
+
+June 1-7
+
+    * Design
+          o Figure out how to limit the quantity of data retrieved
+                + how do we deal with an over-connected node?
+                      # Should this be user configurable?
+          o Think about how best to manage multi-server setups, start documenting this
+          o Continue fleshing out below the line view
+          o Document choices regarding caching of results, and keeping the cache within a specified size
+          o Integration and callback
+                + How does the person installing my application get the info back to their application?
+                + How is this configured?
+                + Will integrators pass their own data through my code, or will it get passed externally?
+          o Milestone: Answers to the above questions
+    * Figure out how best to make php interact with Graphviz
+          o How best to pass the dot file to Graphviz?
+          o Should I be piping the file results directly to php?
+          o saving them to disk and then reading them?
+          o Start figuring out how result caching is going to work
+                + Write to file or to DB?
+                + Does php write the file?
+                + Does graphviz write it?
+                + How is it named for easy later retrieval?
+          o Milestone: Work out example code for whatever I decide is the best method for interaction
+    * Begin work on PHP application framework
+          o Request handling
+          o Database connection
+          o database interaction abstractions
+
+June 8-14
+
+    * Design
+          o Write pseudo instructions for integrators
+          o Finish any holes in the design document
+          o Clean the Design Document up, double check consistency throughout
+          o Milestone: Tentative design doc completion / approval
+    * Work on PHP application framework
+          o Object classes
+          o Continue filling in areas that need work
+    * Begin core application
+          o Implement simple integrator interface (probably php config file at this stage)
+          o Get SQL queries returning correct data
+          o Implement SQL query limiting solution
+          o Begin work on mapping result relationships
+
+
+June 15-21
+
+    * Design
+          o Write formal integration guidelines and interface specifications
+    * Core
+          o Finish SQL result relationship mapping code
+          o Make sure that results are smoothly transitioning into the result object as designed
+          o
+
+
+
+Weekly Tasks:
+
+    * Monday
+          o Send project status update to list
+                + Accomplishments
+                + Goals for next week
+    * Friday
+          o Extend detailed project plan by at least 1 week
+          o Make sure Design Doc is not self-contradictory
+
+= Overview =
