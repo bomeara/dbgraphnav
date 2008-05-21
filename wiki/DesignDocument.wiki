@@ -1,0 +1,12 @@
+#summary This is the core Design Document for the project.
+
+= Introduction =
+
+This document will contain both a project overview and specific information regarding how each aspect will be implemented. When complete, this should guide coding with specific information.
+
+DBGraphNav is 
+
+= Above the Line =
+
+
+= Below the Line =
