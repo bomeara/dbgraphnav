@@ -42,7 +42,7 @@ June 1-7
   * Design
     * Figure out how to limit the quantity of data retrieved
       * how do we deal with an over-connected node?
-                      # Should this be user configurable?
+        * Should this be user configurable?
     * Think about how best to manage multi-server setups, start documenting this
     * Continue fleshing out below the line view
     * Document choices regarding caching of results, and keeping the cache within a specified size
