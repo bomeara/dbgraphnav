@@ -61,6 +61,7 @@ June 1-7
       * Does graphviz write it?
       * How is it named for easy later retrieval?
     * Milestone: Work out example code for whatever I decide is the best method for interaction
+    * Create small test app to test and debug this connection
   * Begin work on PHP application framework
     * Request handling
     * Database connection

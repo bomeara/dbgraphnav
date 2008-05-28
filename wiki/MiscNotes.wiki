@@ -4,9 +4,23 @@
 
 Whatever goes here is something that needed to go somewhere.
 
-
 = Details =
 
+weighted "straight" (or colored) history path?
+-causes caching problems
+-less of an issue for a low-load app
+
+Write small test app to make sure that php and graphviz are talking
+
+We currently have no plans to touch the database
+
+Instructions on how to embed images/maps so that they don't slow loading of the rest of the page for most users.
 
 Ajax options:
 what about a link to the current document using # notation?
+
+= System Requirements =
+PHP 5
+Database System supported by [Abstraction Layer]
+Disk space for temp files
+Server fast enough to run graphviz realtime
