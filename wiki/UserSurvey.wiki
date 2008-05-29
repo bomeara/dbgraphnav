@@ -1,7 +1,28 @@
 #summary Planning for the upcomming user survey
 
 = Issues =
-
-
+Embedding options
+Database Technologies
+Granularity of User control
+How much hand-holding for setup is appropriate?
+What latencies are acceptible?
 
 = Questions =
+How important is the ability to segregate graph generation on a separate server?
+
+Which embedding options do you find attractive?
+  * embed single inline php file for both image and graph
+  * write code that embeds a call to a php file as an image, and again as an image map
+  * AJAX embedding (with the goal of allowing the rest of the page to load completely while the server thinks about the image map
+  * 
+
+How important are local AJAX callbacks to you?
+
+How many data points do you plan to graph in a single image? (max and min)
+
+What speed load times are acceptible for you and your users?
+
+What database technologies would you like to use the project with?
+
+How comfortable are you with forumulating SQL queries which will accurately reflect the relations within your data?
+
