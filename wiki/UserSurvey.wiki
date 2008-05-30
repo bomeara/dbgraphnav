@@ -18,6 +18,8 @@ Which embedding options do you find attractive?
 
 How important are local AJAX callbacks to you?
 
+If AJAX, which frameworks are you using? none, YUI, dojo, Prototype, other?
+
 How many data points do you plan to graph in a single image? (max and min)
 
 What speed load times are acceptible for you and your users?

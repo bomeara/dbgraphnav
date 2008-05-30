@@ -91,6 +91,13 @@ June 15-21
   * Core
     * Finish SQL result relationship mapping code
     * Make sure that results are smoothly transitioning into the result object as designed
+    * 
+
+
+June 22-28
+
+  * 
+
 
 
 Weekly Tasks:
