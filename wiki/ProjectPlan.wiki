@@ -1,10 +1,5 @@
 #summary Detailed and overview timelines.
 
-= Introduction =
-
-Add your content here.
-
-
 = Detailed Plan =
 
 
@@ -38,6 +33,7 @@ May 25-31
   * User Survey
 ----
 (The future is below this line)
+
 June 1-7
 
   * Design
