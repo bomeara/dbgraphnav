@@ -1,0 +1,20 @@
+#summary Installation Instructions
+
+= Pre-requisites =
+Working installations of:
+  * PHP 5
+  * Your database of choice (supported by MDB2)
+  * PEAR
+  * MDB2
+
+=== Installing MDB2 ===
+More info here: http://pear.php.net/manual/en/html/package.database.mdb2.intro.html
+
+In short:
+{{{
+$ pear install MDB2
+
+$ pear install MDB2#pgsql
+}}}
+
+
