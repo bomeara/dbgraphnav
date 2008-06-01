@@ -1,6 +1,6 @@
 #summary Installation Instructions
 
-= Pre-requisites =
+= Prerequisites =
 Working installations of:
   * PHP 5
   * Your database of choice (supported by MDB2)
@@ -10,11 +10,18 @@ Working installations of:
 === Installing MDB2 ===
 More info [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html on the project page]:
 
-In short:
+In short, install MDB2 and then install the DB package you need:
 {{{
 $ pear install MDB2
 
 $ pear install MDB2#pgsql
 }}}
 
+= Configuration =
+  * Modify _db.php.template with your server info. Read the documentation for more detailed options and setup.
+  * Rename _db.php.template to _db.php
 
+
+= Installation =
+
+Move all the package files into a single directory, and include blah.php in your project.
