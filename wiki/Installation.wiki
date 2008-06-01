@@ -18,7 +18,7 @@ $ pear install MDB2#pgsql
 }}}
 
 = Configuration =
-  * Modify \_db.php.template with your server info. Read the documentation for more detailed options and setup.
+  * Modify '_'db.php.template with your server info. Read the documentation for more detailed options and setup.
   * Rename \_db.php.template to \_db.php
 
 
