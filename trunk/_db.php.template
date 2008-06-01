@@ -1,0 +1,34 @@
+<?php
+//Modify this file using your values and rename it to _db.php
+
+require_once 'MDB2.php';
+
+function getDBConnection() {
+// Look here for more info:
+// http://pear.php.net/manual/en/html/package.database.mdb2.intro-dsn.html
+$dsn = array(
+    'phptype'  => 'pgsql',
+    'username' => 'treetapper_select',
+    'password' => 'some_passwd',
+    'hostspec' => 'darwin.nescent.org',
+    'database' => 'thedb',
+);
+
+$options = array(
+    'debug'       => 2,
+);
+
+// uses MDB2::factory() to create the instance
+// and also attempts to connect to the host
+// Swap "connect" to "singleton" in production
+$mdb2 =& MDB2::connect($dsn, $options);
+if (PEAR::isError($mdb2)) {
+    die($mdb2->getMessage());
+}
+return $db2;
+}
+
+getDBConnection();
+
+
+?>
