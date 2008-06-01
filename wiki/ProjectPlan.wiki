@@ -29,7 +29,7 @@ May 25-31
       * image + map?
     * Begin documenting software requirements
       * php5+
-      * supported DB system
+      * supported DB systems
     * Think about DB security.
   * Research DB abstraction layers for php
     * Is ADOdb the right one?

@@ -1,11 +1,29 @@
 #summary Installation Instructions
 
+= System Requirements =
+PHP 5
+Supported Database System
+Disk space for temp files
+Server fast enough to run graphviz with acceptible load times
+
+=== Supported Databases ===
+DBGraphNav supports the same databases as the DBM2 package. See the [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html MDB2 Documentation] for the most up-to-date list.
+
+  * MySQL
+  * MySQLi (PHP5 only)
+  * PostgreSQL
+  * Oracle
+  * Frontbase (unmaintained)
+  * Querysim
+  * Interbase/Firebird (PHP5 only)
+  * MSSQL
+  * SQLite 
+
 = Prerequisites =
 Working installations of:
   * PHP 5
-  * Your database of choice (supported by MDB2)
-  * PEAR
-  * MDB2
+  * Your database of choice
+  * MDB2 (requires PEAR)
 
 === Installing MDB2 ===
 More info [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html on the project page]:
@@ -18,7 +36,7 @@ $ pear install MDB2#pgsql
 }}}
 
 = Configuration =
-  * Modify `_`db.php.template with your server info. Read the documentation for more detailed options and setup.
+  * Modify `_`db.php.template with your server info. Read [http://pear.php.net/manual/en/html/package.database.mdb2.intro-dsn.html the documentation] for more detailed options and setup.
   * Rename `_`db.php.template to `_`db.php
 
 

@@ -23,10 +23,3 @@ Instructions on how to embed images/maps so that they don't slow loading of the 
 
 Ajax options:
 what about a link to the current document using # notation?
-
-= System Requirements =
-PHP 5
-Database System supported by [Abstraction Layer]
-Disk space for temp files
-Server fast enough to run graphviz realtime for users
-PEAR with MDB2 installed

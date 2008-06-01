@@ -60,3 +60,12 @@ After looking at a number of DB abstraction layers, I think MDB2 is the appropri
 
 == PHP -> Graphviz Connection ==
 
+== Embedding ==
+The result of a successful database call will be either an html fragment (no head/body tags) or a complete html document, depending on parameters passed.
+
+The recommended method for embedding is the use of an iframe to hold a true html result. Alternatively, a remote php-include for the fragment provides more flexibility for building the result page at the expense of load times (this is slow because the Graphviz process must terminate before the page can finish loading).
+
+If time permits, an AJAX interface may also be written.
+
+
+
