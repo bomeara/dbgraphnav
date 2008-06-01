@@ -8,7 +8,7 @@ Working installations of:
   * MDB2
 
 === Installing MDB2 ===
-More info here: http://pear.php.net/manual/en/html/package.database.mdb2.intro.html
+More info [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html on the project page]:
 
 In short:
 {{{
