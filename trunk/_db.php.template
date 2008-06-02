@@ -25,10 +25,10 @@ $mdb2 =& MDB2::connect($dsn, $options);
 if (PEAR::isError($mdb2)) {
     die($mdb2->getMessage());
 }
-return $db2;
+return $mdb2;
 }
 
-getDBConnection();
+$_SESSION["database"] = getDBConnection();
 
 
 ?>
