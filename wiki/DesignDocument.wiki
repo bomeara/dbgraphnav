@@ -39,6 +39,9 @@ Integrator workflow
 
 
 == User Query Interface ==
+  * (In setup) Define "types" of data nodes
+  * For each type of node, define a query which returns connected results in the format: ||Value||Type||Display Value||
+  * The program retrieves a node, then retrieves it's neighbors using the specified queries for that type of node, and then retrieves friends of friends where appropriate, using the data to construct the graph.
 
 
 = Low Level =
@@ -55,7 +58,7 @@ Nodes:
   * Have a type
   * Have a neighbors method which queries the database to find related nodes
 
-Nodes which have the exact same value and type are equivalent. (this is a somewhat built-in limitation from Graphviz, and there is no good way to tell nodes apart)
+Nodes which have the exact same value and type are equivalent. (this is a somewhat built-in limitation from Graphviz, as there is no good way to tell nodes apart)
 
 The return value of a neighbors query is a set of results formatted as follows:
 ||Value||Type||Display Value||
