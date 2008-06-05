@@ -132,6 +132,7 @@ Correct External app URL retrieval (the app interacts correctly with the applica
 -July 28-
 Tentative core project completion date. This includes security against SQL injection attacks.
 Begin work on extra non-core features such as the following:
+Build AJAX mouseover etc. breakout control code
 Write further documentation on modification of the appropriate SQL statements to customize the project for other databases
 Improve efficiency/response time, using techniques such as caching and predictive lookup
 Design and implement database templating system
