@@ -59,10 +59,10 @@ June 1-7
       * How is it named for easy later retrieval?
     * Milestone: Work out example code for whatever I decide is the best method for interaction
     * Create small test app to test and debug this connection
-  * Begin work on PHP application framework
-    * Request handling
-    * Database connection
-    * database interaction abstractions
+  * Create working config interface
+    * XML config file
+    * Read into array
+    * PHP "converter" to transform XML -> static php file
 
 June 8-14
 
@@ -71,9 +71,10 @@ June 8-14
     * Finish any holes in the design document
     * Clean the Design Document up, double check consistency throughout
     * Milestone: Tentative design doc completion / approval
-  * Work on PHP application framework
-    * Object classes
-    * Continue filling in areas that need work
+  * Begin work on PHP application framework
+    * Request handling
+    * Database connection
+    * database interaction abstractions
   * Begin core application
     * Implement simple integrator interface (probably php config file at this stage)
     * Get SQL queries returning correct data
@@ -85,6 +86,9 @@ June 15-21
 
   * Design
     * Write formal integration guidelines and interface specifications
+  * Work on PHP application framework
+    * Object classes
+    * Continue filling in areas that need work
   * Core
     * Finish SQL result relationship mapping code
     * Make sure that results are smoothly transitioning into the result object as designed
