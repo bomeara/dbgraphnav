@@ -65,8 +65,7 @@ Nodes:
 Nodes which have the exact same value and type are equivalent. (this is a somewhat built-in limitation from Graphviz, as there is no good way to tell nodes apart)
 
 The return value of a neighbors query is a set of results formatted as follows:
-||Value||Type||Display Value||
-
+||value||type||display_value||(optional)callback_url|| (optional) display_options ||
 
 
 == Database Abstraction with MDB2 ==
@@ -107,7 +106,7 @@ There are two methods of limiting the amount of data displayed in each image. Th
     * Remove 1 from outer ring - 1
     * Remove 1 from outer ring - 2
     * etc.
-    * NOTE: We never allow a graph to have fewer than 2 nodes (we favor being over the max than under it).
+    * NOTE: We never allow a graph to have fewer than 2 nodes (we favor being over the max than under it). This rule could come into play with a node which is heavily connected, but whose neighbors are not at all connected.
 
 == Configuration ==
 Configuration is via XML file. Template file will be included with reasonable default values. There wil be an "apply configuration" php script that will parse the config file into a php array, serialize it, and write it back out to a php file (so as to avoid the overhead of parsing the xml file every time the script is run).
