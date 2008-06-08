@@ -1,0 +1,25 @@
+<dbgraphnav>
+<database>
+<DSN>
+<phptype></phptype>
+<dbsyntax></dbsyntax>
+<protocol></protocol>
+<hostspec></hostspec>
+<database></database>
+<username></username>
+<password></password>
+<proto_opts></proto_opts>
+<option></option>
+</DSN>
+<friend_finder>
+<example_type>in t
+<DSN>(optional)</DSN>
+<callback_url>
+</callback_url>
+
+</example_type>
+
+</friend_finder>
+</database>
+
+</dbgraphnav>

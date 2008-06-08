@@ -1,0 +1,40 @@
+#summary Configuration File Options
+
+= Overview =
+The configuration files for this program reside in /config/config.xml. A config_defaults.xml is provided, any changes made to config.xml override config_defaults.xml. All variables that should be changed will be available there. A file with default (sane) values is provided. Changes made are not updated immediately. Run saveChanges.php to finalize your choices.
+
+This file documents the meaning of each configuration option. For convenience, this is formatted as a list with the format valuename - explanation. Capitalization does matter.
+
+= Config Values=
+All values are wrapped within a single dbgraphnav root tag.
+  * database - Main tag for storing database related configuration
+    * DSN - stores connection information. Each of these values is passed to MDB2. See here for more detailed formatting info: http://pear.php.net/manual/en/html/package.database.mdb2.intro-dsn.html. This value may be a simple properly formatted DSN string, without the following sub-values.
+      * phptype - Database backend used in PHP (i.e. mysql  , pgsql etc.)
+      * dbsyntax - Database used with regards to SQL syntax etc.
+      * protocol - Communication protocol to use ( i.e. tcp, unix etc.)
+      * hostspec - Host specification (hostname[:port])
+      * database - Database to use on the DBMS server
+      * username - User name for login
+      * password - Password for login
+      * proto_opts - Maybe used with protocol
+      * option - Additional connection options in URI query string format. options get separated by &.
+    * friend_finder - stores information for finding related nodes given a specific node type.
+      * (Type) - each type of node has its own entry. If there are multiple entries of the same type, they will each be evaluated and included in the results. It is recommended to use the SQL UNION statement instead of multiple types where possible for efficiency reasons.
+	* DSN - (Optional) a DSN in the same format as above. Uses the above values for any unspecified values (but replaces a simple string). This is useful for over-riding specific attributes (such as hostspec) to pull data from a different database or server.
+      	* query_string - string SQL query that returns related data in the format ||value||type||display value||(optional)callback url|| (optional) display_options ||
+	* callback_url - (optional) A default callback url. Non-empty query values override this string.
+	* display_options - (optional) additional display options in the format specified below.
+  * graphing_options
+    * graphviz_options - see for more info: http://pear.php.net/package/Image_GraphViz/docs/1.3.0RC3/GraphViz/Image_GraphViz.html
+      * binPath - base path to Graphviz commands
+      * dotCommand - path to the Graphviz dot command
+      * neatoCommand - path to the Graphviz neato command
+    * caching_options
+      * path_to_cache - path to the image, query, and map cache
+      * age_toonew - graph file is so new we don't even look to see if we should redraw it
+      * behavior - can be none (no caching), simple (does not cache query result), complex (caches query result to avoid regenerating graphs with the same values)
+      * size_limit - if the directory is larger than this, the oldest files will be pruned
+    * limiting
+      * max_tree_depth - maximum depth of the search for friends
+      * max_nodes - maximum number of nodes, anything more triggers the pruning algorithm.
+    * display_options - default display options which are overriden by those in a type
