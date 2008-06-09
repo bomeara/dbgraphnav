@@ -31,8 +31,6 @@ May 25-31
     * are there newer ones?
     * learn about the chosen one
   * User Survey
-----
-(The future is below this line)
 
 June 1-7
 
@@ -63,6 +61,8 @@ June 1-7
     * XML config file
     * Read into array
     * PHP "converter" to transform XML -> static php file
+----
+(The future is below this line)
 
 June 8-14
 
@@ -93,16 +93,19 @@ June 15-21
     * Finish SQL result relationship mapping code
     * Make sure that results are smoothly transitioning into the result object as designed
     * Write result object -> dot file
-    * Write production code for integrating php and Graphviz
-
+    
 
 
 June 22-28
   
   * Write code to implement caching strategy	
+  * Write production code for integrating php and Graphviz
   * Implement necessary server-callback configuration for users
+  * implement code to make the results visible within an iframe (*milestone: first true integration point*)
 
+June 29-July 5
 
+  * 
 
 Weekly Tasks:
 
