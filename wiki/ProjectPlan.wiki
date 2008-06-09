@@ -104,8 +104,9 @@ June 22-28
   * implement code to make the results visible within an iframe (*milestone: first true integration point*)
 
 June 29-July 5
-
-  * 
+ 
+  * Code cleanup
+  * Filling in the cracks, taking stuff from the "cobbled together with ductape" stage to "cleanly functional"
 
 Weekly Tasks:
 
