@@ -44,8 +44,9 @@ class DBGraphNav_Config {
     either an array or a string).
   */
   private function DSN2php($DSNin) {
-    if (strlen(trim($DSNin)) > 0) { //text in the node, assume string DSN
-      return trim($DSNin);
+    $trimmed = trim($DSNin);
+    if (strlen($trimmed) > 0) { //text in the node, assume string DSN
+      return $trimmed;
     } else {
       $outary = Array();
       foreach ($DSNin->children() as $element) {
