@@ -3,7 +3,7 @@
 
 class DBGraphNav_Config {
   function __construct() {
-    if (!$this->cfg = simplexml_load_file('config_defaults.xml')) {
+    if (!$this->cfg = simplexml_load_file('config.xml')) {
       die( "Error loading config file!\n");
     }
   }
@@ -11,19 +11,42 @@ class DBGraphNav_Config {
   function __destruct() {
 
   }
+  /*
+    This function returns an Array containing subelements consisting of
+    an array containing:
+    0 - the DSN
+    1 - The query string
+    2 - (optional) callback url
+    3 - (optional) display_options
 
+    This allows us to run multiple queries for the same datatype.
+   */
+  function get_queries($type) {
+    $outary = Array();
+    foreach ($this->cfg->database->friend_finder->$type as $element) {
+      echo (string) $element->DSN;
+      $outary[] = Array($this->merge_DSN($element->DSN),
+			(string)$element->query_string,
+			(string)$element->callback_url,
+			(string)$element->display_options);
+    }
+    return $outary;
+  }
 
+  function test() {
+    //        print_r( $this->get_default_DSN($this->cfg->database->friend_finder->example_type2->DSN));
+    print_r($this->get_default_DSN());
+  }
 
   /*
     Converts an XML representation of a DSN to one usable by php (that is
     either an array or a string).
   */
   private function DSN2php($DSNin) {
-    if (!strlen($DSNin)) { //this has text in the node, assume string DSN
-      return $DSNin;
+    if (strlen($DSNin)) { //this has text in the node, assume string DSN
+      return (string)$DSNin;
     } else {
-      $outary = "";
-      print_r($DSNin);
+      $outary = Array();
       foreach ($DSNin->children() as $element) {
 	$outary[$element->getName()] = (string) $element;
       }
@@ -36,7 +59,6 @@ class DBGraphNav_Config {
     The only time we ever actually need a database connection is when we're
     doing the queries. Since those can each override the default DSN, there's
     no reason to make the default values public.
-
     returns a php form DSN
   */
   private function get_default_DSN() {
@@ -44,8 +66,10 @@ class DBGraphNav_Config {
   }
 
   // called with a (potential) DSN, merges it with the default values
-  // takes a DSN in the form of a string or an array, NOT AN XML OBJECT
+  // takes a DSN in the form of an XML OBJECT
+  // returns a php form DSN
   private function merge_DSN($newDSN) {
+    $newDSN = $this->DSN2php($newDSN);
     if (empty($newDSN)) {
       return $this->get_default_DSN();
     }elseif (is_string($newDSN)){
@@ -66,7 +90,6 @@ class DBGraphNav_Config {
       die("weird error in merge_DSN, newDSN not empty, string, or array");
     }    
   }
-
 }
 
 
