@@ -6,8 +6,8 @@
 <protocol></protocol>
 <hostspec></hostspec>
 <database></database>
-<username></username>
-<password></password>
+<username>username</username>
+<password>password</password>
 <proto_opts></proto_opts>
 <option></option>
 </DSN>

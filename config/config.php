@@ -23,8 +23,9 @@ class DBGraphNav_Config {
       return $DSNin;
     } else {
       $outary = "";
-      foreach ($DSNin as $element) {
-	$outary[$element->getName] = $element;
+      print_r($DSNin);
+      foreach ($DSNin->children() as $element) {
+	$outary[$element->getName()] = (string) $element;
       }
       return $outary;
     }
@@ -39,7 +40,7 @@ class DBGraphNav_Config {
     returns a php form DSN
   */
   private function get_default_DSN() {
-    return DSN2php($this->cfg->database->DSN);
+    return $this->DSN2php($this->cfg->database->DSN);
   }
 
   // called with a (potential) DSN, merges it with the default values
