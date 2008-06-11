@@ -24,19 +24,12 @@ class DBGraphNav_Config {
   function get_queries($type) {
     $outary = Array();
     foreach ($this->cfg->database->friend_finder->$type as $element) {
-      echo (string) $element->DSN;
       $outary[] = Array($this->merge_DSN($element->DSN),
 			(string)$element->query_string,
 			(string)$element->callback_url,
 			(string)$element->display_options);
     }
     return $outary;
-  }
-
-  function test() {
-    //    print_r(strlen($this->cfg->database->friend_finder->example_type->DSN));
-
-    print_r( $this->merge_DSN($this->cfg->database->friend_finder->example_type2->DSN));
   }
 
   /*
