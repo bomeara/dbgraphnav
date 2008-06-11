@@ -34,8 +34,9 @@ class DBGraphNav_Config {
   }
 
   function test() {
-    //        print_r( $this->get_default_DSN($this->cfg->database->friend_finder->example_type2->DSN));
-    print_r($this->get_default_DSN());
+    //    print_r(strlen($this->cfg->database->friend_finder->example_type->DSN));
+
+    print_r( $this->merge_DSN($this->cfg->database->friend_finder->example_type2->DSN));
   }
 
   /*
@@ -43,8 +44,8 @@ class DBGraphNav_Config {
     either an array or a string).
   */
   private function DSN2php($DSNin) {
-    if (strlen($DSNin)) { //this has text in the node, assume string DSN
-      return (string)$DSNin;
+    if (strlen(trim($DSNin)) > 0) { //text in the node, assume string DSN
+      return trim($DSNin);
     } else {
       $outary = Array();
       foreach ($DSNin->children() as $element) {
