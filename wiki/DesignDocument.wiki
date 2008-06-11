@@ -122,3 +122,5 @@ There are two methods of limiting the amount of data displayed in each image. Th
 
 == Configuration ==
 Configuration is via XML file. Template file will be included with reasonable default values. There will be an "apply configuration" php script that will parse the config file into a php array, serialize it, and write it back out to a php file (so as to avoid the overhead of parsing the xml file every time the script is run).
+
+Please see the ConfigurationOptions page for details.

@@ -1,7 +1,7 @@
 #summary Configuration File Options
 
 = Overview =
-The configuration files for this program reside in /config/config.xml. A config_defaults.xml is provided, any changes made to config.xml override config_defaults.xml. All variables that should be changed will be available there. A file with default (sane) values is provided. Changes made are not updated immediately. Run saveChanges.php to finalize your choices.
+The configuration files for this program reside in /config/config.xml. A config_defaults.xml is provided, any changes made to config.xml override config_defaults.xml.
 
 This file documents the meaning of each configuration option. For convenience, this is formatted as a list with the format valuename - explanation. Capitalization does matter.
 
