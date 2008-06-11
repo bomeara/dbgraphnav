@@ -3,20 +3,47 @@
 
 class DBGraphNav_Config {
   function __construct() {
-    if (!$cfg = domxml_open_file("config_default.xml")){
-      die( "Error loading config file!");
+    if (!$this->cfg = simplexml_load_file('config_defaults.xml')) {
+      die( "Error loading config file!\n");
     }
   }
 
   function __destruct() {
-    $cfg->free();
+
+  }
+
+
+
+  /*
+    Converts an XML representation of a DSN to one usable by php (that is
+    either an array or a string).
+  */
+  private function DSN2php($DSNin) {
+    if (!strlen($DSNin)) { //this has text in the node, assume string DSN
+      return $DSNin;
+    } else {
+      $outary = "";
+      foreach ($DSNin as $element) {
+	$outary[$element->getName] = $element;
+      }
+      return $outary;
+    }
   }
   
+
+  /*
+    The only time we ever actually need a database connection is when we're
+    doing the queries. Since those can each override the default DSN, there's
+    no reason to make the default values public.
+
+    returns a php form DSN
+  */
   private function get_default_DSN() {
-    
+    return DSN2php($this->cfg->database->DSN);
   }
 
   // called with a (potential) DSN, merges it with the default values
+  // takes a DSN in the form of a string or an array, NOT AN XML OBJECT
   private function merge_DSN($newDSN) {
     if (empty($newDSN)) {
       return $this->get_default_DSN();
