@@ -21,7 +21,9 @@ All values are wrapped within a single dbgraphnav root tag.
     * friend_finder - stores information for finding related nodes given a specific node type.
       * (Type) - each type of node has its own entry. If there are multiple entries of the same type, they will each be evaluated and included in the results. It is recommended to use the SQL UNION statement instead of multiple types where possible for efficiency reasons.
         * DSN - (Optional) a DSN in the same format as above. Uses the above values for any unspecified values (but replaces a simple string). This is useful for over-riding specific attributes (such as hostspec) to pull data from a different database or server.
-      	* query_string - string SQL query that returns related data in the format ||value||type||display value||(optional)callback url|| (optional) display_options ||
+      	* query_string - string SQL query that returns related data in the format ||value||type||display value||(optional)callback url|| (optional) display_options || Replacement variables are specified with attributes, the currently allowable ones being
+	  * depth 
+	  * parentnode
       	* callback_url - (optional) A default callback url. Non-empty query values override this string.
       	* display_options - (optional) additional display options in the format specified below.
   * graphing
