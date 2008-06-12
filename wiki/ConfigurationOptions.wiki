@@ -24,6 +24,10 @@ All values are wrapped within a single dbgraphnav root tag.
       	* query_string - string SQL query that returns related data in the format ||value||type||display value||(optional)callback url|| (optional) display_options ||	Replacement variables are specified with attributes, the currently allowable ones being: depth, parentnode.
       	* callback_url - (optional) A default callback url. Non-empty query values override this string.
       	* display_options - (optional) additional display options in the format specified below.
+	* parent_edge - (optional) modifies the edge between this node and its parent. a subtype allowing the following (as specified above):
+          * callback_url
+          * display_options
+        * collapse_to_edge - (optional) collapse this node into an edge. Not compatible with parent_edge. NOT IMPLEMENTED YET.
   * graphing
     * graphviz - see for more info: http://pear.php.net/package/Image_GraphViz/docs/1.3.0RC3/GraphViz/Image_GraphViz.html
       * binPath - base path to Graphviz commands
@@ -37,4 +41,5 @@ All values are wrapped within a single dbgraphnav root tag.
     * limiting
       * max_tree_depth - maximum depth of the search for friends
       * max_nodes - maximum number of nodes, anything more triggers the pruning algorithm.
-    * display_options - default display options which are overriden by those in a type
+    * display_options - default display options which are overriden by those in a type. Each attribute is a sub-element selected from this list: http://www.graphviz.org/doc/info/attrs.html
+
