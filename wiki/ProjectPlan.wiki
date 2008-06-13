@@ -101,10 +101,10 @@ June 22-28
   * Write code to implement caching strategy	
   * Write production code for integrating php and Graphviz
   * Implement necessary server-callback configuration for users
-  * implement code to make the results visible within an iframe (*milestone: first true integration point*)
 
 June 29-July 5
  
+  * implement code to make the results visible within an iframe (*milestone: first true integration point*)
   * Code cleanup
   * Filling in the cracks, taking stuff from the "cobbled together with ductape" stage to "cleanly functional"
 
