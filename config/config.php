@@ -24,14 +24,24 @@ class DBGraphNav_Config {
   function get_queries($type) {
     $outary = Array();
     foreach ($this->cfg->database->friend_finder->$type as $element) {
-      $atrary = Array();
+      //Parse the request attributes (substitution variables) here
+      $atr_search = Array();
+      $atr_replace = Array();
+      
+      /* this array defines the mapping between an attribute like parentnode
+	 and the actual value */
+      $sr_lookup = 
+      
       foreach($element->query_string->attributes() as $a=>$b){
-	$atrary[$a]=>(string)$b;
+	$atr_search[] =$b;
+	$atr_replace[]=$lookup[$a];
       }
-
+      $query_string = (string)$element->query_string;
+      //str_replace($atr_search, 
+      //				  $atr_replace, 
+      //			  (string)$element->query_string);
       $outary[] = Array("DSN" => $this->merge_DSN($element->DSN),
-			"query_string" => (string)$element->query_string,
-			"query_string_replacements" => $atrary,
+			"query_string" => $query_string,
 			"callback_url" => (string)$element->callback_url,
 			"display_options"=> (string)$element->display_options);
     }
@@ -48,6 +58,7 @@ class DBGraphNav_Config {
       return $trimmed;
     } else {
       $outary = Array();
+      //Throws a warning when children() is empty. This is expected behavior.
       foreach ($DSNin->children() as $element) {
 	$outary[$element->getName()] = (string) $element;
       }
