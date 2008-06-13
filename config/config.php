@@ -3,7 +3,7 @@
 
 class DBGraphNav_Config {
   function __construct() {
-    if (!$this->cfg = simplexml_load_file('config.xml')) {
+    if (!$this->cfg = simplexml_load_file('config/config.xml')) {
       die( "Error loading config file!\n");
     }
   }
@@ -14,20 +14,26 @@ class DBGraphNav_Config {
   /*
     This function returns an Array containing subelements consisting of
     an array containing:
-    0 - the DSN
-    1 - The query string
-    2 - (optional) callback url
-    3 - (optional) display_options
+    *the DSN (array or string)
+    *The query string
+    *(optional) callback url
+    *(optional) display_options
 
     This allows us to run multiple queries for the same datatype.
    */
   function get_queries($type) {
     $outary = Array();
     foreach ($this->cfg->database->friend_finder->$type as $element) {
-      $outary[] = Array($this->merge_DSN($element->DSN),
-			(string)$element->query_string,
-			(string)$element->callback_url,
-			(string)$element->display_options);
+      $atrary = Array();
+      foreach($element->query_string->attributes() as $a=>$b){
+	$atrary[$a]=>(string)$b;
+      }
+
+      $outary[] = Array("DSN" => $this->merge_DSN($element->DSN),
+			"query_string" => (string)$element->query_string,
+			"query_string_replacements" => $atrary,
+			"callback_url" => (string)$element->callback_url,
+			"display_options"=> (string)$element->display_options);
     }
     return $outary;
   }
@@ -48,7 +54,6 @@ class DBGraphNav_Config {
       return $outary;
     }
   }
-  
 
   /*
     The only time we ever actually need a database connection is when we're
