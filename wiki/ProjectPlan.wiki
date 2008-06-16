@@ -61,8 +61,6 @@ June 1-7
     * XML config file
     * Read into array
     * PHP "converter" to transform XML -> static php file
-----
-(The future is below this line)
 
 June 8-14
 
@@ -81,19 +79,16 @@ June 8-14
     * Implement SQL query limiting solution
     * Begin work on mapping result relationships
 
+----
+(The future is below this line)
 
 June 15-21
 
-  * Design
-    * Write formal integration guidelines and interface specifications
-  * Work on PHP application framework
-    * Object classes
-    * Continue filling in areas that need work
-  * Core
-    * Finish SQL result relationship mapping code
-    * Make sure that results are smoothly transitioning into the result object as designed
-    * Write result object -> dot file
-    
+  * Object classes for result relationship mapping
+  * Work on query pruning algorithm
+  * Finish SQL result relationship mapping code
+  * Make sure that results are smoothly transitioning into the result object as designed
+  * Write result object -> dot file
 
 
 June 22-28
@@ -111,7 +106,7 @@ June 29-July 5
 
 July 6-12
 
-  * Write integration instructions
+  * Write formal integration guidelines and interface specifications
   * Bugtesting
   * Integration testing
   * Code cleanup
