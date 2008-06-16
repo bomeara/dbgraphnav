@@ -111,6 +111,7 @@ June 29-July 5
 
 July 6-12
 
+  * Write integration instructions
   * Bugtesting
   * Integration testing
   * Code cleanup
