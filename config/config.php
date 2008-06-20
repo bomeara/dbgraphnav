@@ -21,25 +21,27 @@ class DBGraphNav_Config {
 
     This allows us to run multiple queries for the same datatype.
    */
-  function get_queries($type) {
+  function get_queries($parentnode, $type) {
     $outary = Array();
     foreach ($this->cfg->database->friend_finder->$type as $element) {
-      //Parse the request attributes (substitution variables) here
       $atr_search = Array();
       $atr_replace = Array();
-      
+
+      //Parse the request attributes (substitution variables) here      
       /* this array defines the mapping between an attribute like parentnode
-	 and the actual value */
-      $sr_lookup = 
-      
+	 and the actual value. Expand for more  */
+      $sr_lookup = Array( "parentnode" => $parentnode);
+    
+      //build the replacement array
       foreach($element->query_string->attributes() as $a=>$b){
 	$atr_search[] =$b;
-	$atr_replace[]=$lookup[$a];
+	$atr_replace[]=$sr_lookup[$a];
       }
-      $query_string = (string)$element->query_string;
-      //str_replace($atr_search, 
-      //				  $atr_replace, 
-      //			  (string)$element->query_string);
+      //do the replacement
+      $query_string = //(string)$element->query_string;
+	str_replace($atr_search, 
+		    $atr_replace, 
+		    (string)$element->query_string);
       $outary[] = Array("DSN" => $this->merge_DSN($element->DSN),
 			"query_string" => $query_string,
 			"callback_url" => (string)$element->callback_url,
@@ -59,9 +61,11 @@ class DBGraphNav_Config {
     } else {
       $outary = Array();
       //Throws a warning when children() is empty. This is expected behavior.
+      $a = error_reporting(1); //temporarily disable warnings
       foreach ($DSNin->children() as $element) {
 	$outary[$element->getName()] = (string) $element;
       }
+      error_reporting($a);
       return $outary;
     }
   }
