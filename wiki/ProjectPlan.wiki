@@ -79,20 +79,20 @@ June 8-14
     * Implement SQL query limiting solution
     * Begin work on mapping result relationships
 
-----
-(The future is below this line)
-
 June 15-21
 
   * Object classes for result relationship mapping
   * Work on query pruning algorithm
   * Finish SQL result relationship mapping code
   * Make sure that results are smoothly transitioning into the result object as designed
-  * Write result object -> dot file
 
+
+----
+(The future is below this line)
 
 June 22-28
-  
+
+  * Write result object -> dot file
   * Write code to implement caching strategy	
   * Write production code for integrating php and Graphviz
   * Implement necessary server-callback configuration for users
