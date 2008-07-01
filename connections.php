@@ -14,7 +14,7 @@ class DBGraphNav_DBCon {
       if (PEAR::isError($db)) {
 	die($db->getMessage());
       }
-      $db->setLimit(5); //debugging, prevents server load
+      //      $db->setLimit(10); //debugging, prevents server load
       $result =& $db->query($qry["query_string"]);
       if (PEAR::isError($result)) {
 	die($result->getMessage());
@@ -39,6 +39,10 @@ class DBGraphNav_Network {
   //expects the build_network function to have already been called
   function get_dot() {
     $graph = new Image_Graphviz();
+    $graph->binPath = "/usr/local/bin/";
+    //options. Hack to make it work for now.
+    $graph->graph = array('directed'=>false,
+			  'attributes'=>array('overlap'=>'false'));
     //type
     foreach ($this->network as $type=>$value){
       //actual node
@@ -48,50 +52,25 @@ class DBGraphNav_Network {
 	//hashed instead.
 	$cur_node = "$type||||$id";
 	$graph->addNode($cur_node,
-			array(
-			      'label' => $value["display_name"]));
+			array( //make wordwrap configurable later
+			      'label' => wordwrap($value["display_name"], 20)));
 			      //'url' => 'http://google.com/'));
 	//node neighbor type
-	foreach ($value["neighbors"] as $type2) {
+	foreach ($value["neighbors"] as $type2=>$value2) {
 	  //actual node neighbor
-	  foreach ($type2 as $id2=>$display_val){
+	  foreach ($value2 as $id2=>$display_val2){
 	    $graph->addEdge(Array($cur_node => "$type2||||$id2"));
 	  }
 	}
       }
     }
-    $graph->binPath = "/usr/local/bin/";
-    echo "here it is:";
-    return $graph->saveParsedGraph("output.dot");
+    //$graph->saveParsedGraph("output.dot");
+    return $graph->image('png', 'neato');
   }
 
   function get_network() {
     //    $this->build_network($basenode, $type);
     return $this->network;
-  }
-  function fake_build_network() {
-    $this->network = Array('type1'=>Array(
-			       'node1'=>Array(
-				   'neighbors'=>Array(
-					'type2'=>Array(
-					    'node2'=>'node 1',
-					    'node4'=>'node 2')
-						      )
-					      ),
-			       'node3'=>Array(
-				    'neighbors'=>Array(
-					    'node1'=>'node 1')
-					      )
-					  ),
-			   'type2'=>Array(
-			      'node2'=>Array(
-				  'neighbors'=>Array(
-				        'node1'=>'display'
-						     )
-					     )
-					  )
-			   );
-
   }
 
   function build_network($basenode, $type, $maxdepth = 5, $depth = 0) {
