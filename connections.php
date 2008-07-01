@@ -40,6 +40,7 @@ class DBGraphNav_Network {
   function get_dot() {
     $graph = new Image_Graphviz();
     $graph->binPath = "/usr/local/bin/";
+    $graph->dotPath = 'dot';
     //options. Hack to make it work for now.
     $graph->graph = array('directed'=>false,
 			  'attributes'=>array('overlap'=>'false'));
@@ -49,11 +50,13 @@ class DBGraphNav_Network {
       foreach ($value as $id=>$value){
 	//this creates a unique name for each node. If this
 	//conflicts with a graph's naming scheme, it may be
-	//hashed instead.
+	//hashed instead. It is not currently hashed for 
+	//performance reasons.
 	$cur_node = "$type||||$id";
 	$graph->addNode($cur_node,
 			array( //make wordwrap configurable later
-			      'label' => wordwrap($value["display_name"], 20)));
+			      'label' => wordwrap($value["display_name"],
+						  20)));
 			      //'url' => 'http://google.com/'));
 	//node neighbor type
 	foreach ($value["neighbors"] as $type2=>$value2) {
@@ -64,7 +67,7 @@ class DBGraphNav_Network {
 	}
       }
     }
-    //$graph->saveParsedGraph("output.dot");
+    $graph->saveParsedGraph("output.dot");
     return $graph->image('png', 'neato');
   }
 
@@ -75,7 +78,7 @@ class DBGraphNav_Network {
 
   function build_network($basenode, $type, $maxdepth = 5, $depth = 0) {
     $a =& $this->network[$type][$basenode];
-    $a['display_name']="base node";
+    $a['display_name']="base node"; //FIX ME
     $a['neighbors'] =
       $this->build_network_helper($basenode, $type, $maxdepth, $depth);
   }
@@ -86,12 +89,16 @@ class DBGraphNav_Network {
     if ($depth <= $maxdepth) {
 	foreach ($this->db->get_data($basenode, $type) as $node) {
 	  $a =& $this->network[$node[1]][$node[0]];
-	  if (!isset($a)) { //node info is always the same
+	  //	  if (!isset($a)) { //node info is always the same
 	    $a['display_name']=$node[2];
-	    $a['neighbors'] =
-	      $this->build_network_helper($node[0], $node[1], $maxdepth, $depth);
+	    $a['neighbors'] = 
+	      array_merge((array)$a['neighbors'],
+			  $this->build_network_helper($node[0],
+						      $node[1],
+						      $maxdepth,
+						      $depth));
 	    $b[$node[1]][$node[0]] = $node[2]; //store friends
-	  }
+	    //}
 	}
     }
     return $b;
