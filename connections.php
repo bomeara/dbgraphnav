@@ -74,15 +74,22 @@ class DBGraphNav_Network {
   }
 
   function build_network($basenode, $type, $maxdepth = 5, $depth = 0) {
+    $a =& $this->network[$type][$basenode];
+    $a['display_name']="base node";
+    $a['neighbors'] =
+      $this->build_network_helper($basenode, $type, $maxdepth, $depth);
+  }
+  
+  function build_network_helper($basenode, $type, $maxdepth = 5, $depth = 0) {
     $depth += 1;
     $b = array();
-    if ($depth < $maxdepth) {
+    if ($depth <= $maxdepth) {
 	foreach ($this->db->get_data($basenode, $type) as $node) {
 	  $a =& $this->network[$node[1]][$node[0]];
 	  if (!isset($a)) { //node info is always the same
 	    $a['display_name']=$node[2];
 	    $a['neighbors'] =
-	      $this->build_network($node[0], $node[1], $maxdepth, $depth);
+	      $this->build_network_helper($node[0], $node[1], $maxdepth, $depth);
 	    $b[$node[1]][$node[0]] = $node[2]; //store friends
 	  }
 	}
