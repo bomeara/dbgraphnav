@@ -43,32 +43,55 @@ class DBGraphNav_Network {
     foreach ($this->network as $type=>$value){
       //actual node
       foreach ($value as $id=>$value){
-	$cur_node = "\"$type||||$id\"";
-	$graph->addNode(
-			//this creates a unique name for each node. If this
-			//conflicts with a graph's naming scheme, it may be
-			//hashed instead.
-			$cur_node,
+	//this creates a unique name for each node. If this
+	//conflicts with a graph's naming scheme, it may be
+	//hashed instead.
+	$cur_node = "$type||||$id";
+	$graph->addNode($cur_node,
 			array(
 			      'label' => $value["display_name"]));
 			      //'url' => 'http://google.com/'));
 	//node neighbor type
-	foreach ($value["neighbors"] as $type) {
+	foreach ($value["neighbors"] as $type2) {
 	  //actual node neighbor
-	  foreach ($type as $id=>$display_val){
-	    $graph->addEdge(Array($cur_node => "\"$type||||$id\""));
+	  foreach ($type2 as $id2=>$display_val){
+	    $graph->addEdge(Array($cur_node => "$type2||||$id2"));
 	  }
 	}
       }
     }
-    $graph->binPath = "/usr/local/bin";
+    $graph->binPath = "/usr/local/bin/";
     echo "here it is:";
-    return $graph->fetch("png");
+    return $graph->saveParsedGraph("output.dot");
   }
 
   function get_network() {
     //    $this->build_network($basenode, $type);
     return $this->network;
+  }
+  function fake_build_network() {
+    $this->network = Array('type1'=>Array(
+			       'node1'=>Array(
+				   'neighbors'=>Array(
+					'type2'=>Array(
+					    'node2'=>'node 1',
+					    'node4'=>'node 2')
+						      )
+					      ),
+			       'node3'=>Array(
+				    'neighbors'=>Array(
+					    'node1'=>'node 1')
+					      )
+					  ),
+			   'type2'=>Array(
+			      'node2'=>Array(
+				  'neighbors'=>Array(
+				        'node1'=>'display'
+						     )
+					     )
+					  )
+			   );
+
   }
 
   function build_network($basenode, $type, $maxdepth = 5, $depth = 0) {

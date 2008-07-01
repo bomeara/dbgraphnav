@@ -86,10 +86,6 @@ June 15-21
   * Finish SQL result relationship mapping code
   * Make sure that results are smoothly transitioning into the result object as designed
 
-
-----
-(The future is below this line)
-
 June 22-28
 
   * Write result object -> dot file
@@ -97,8 +93,12 @@ June 22-28
   * Write production code for integrating php and Graphviz
   * Implement necessary server-callback configuration for users
 
+----
+(The future is below this line)
+
 June 29-July 5
- 
+
+  * Write result object -> dot file
   * implement code to make the results visible within an iframe (*milestone: first true integration point*)
   * Fix what's broken
   * implement "collapse node" mode
