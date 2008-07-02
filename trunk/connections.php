@@ -11,6 +11,7 @@ class DBGraphNav_DBCon {
     $cfg = new DBGraphNav_Config; //broken, decide on config style
     foreach ($cfg->get_queries($parentnode, $data_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
+      $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
       if (PEAR::isError($db)) {
 	die($db->getMessage());
       }
@@ -19,7 +20,6 @@ class DBGraphNav_DBCon {
       if (PEAR::isError($result)) {
 	die($result->getMessage());
       }
-      
       while ($row = $result->fetchRow()) {
 	$return[] =$row;
       }
@@ -76,34 +76,35 @@ class DBGraphNav_Network {
     return $this->network;
   }
 
-  function build_network($basenode, $type, $maxdepth = 5, $depth = 0) {
+  function build_network($basenode, $type, $maxdepth = 5) {
     $a =& $this->network[$type][$basenode];
-    $a['display_name']="base node"; //FIX ME
+    $a['display_name']='BASE NODE'; //FIX ME
+    $a['depth']=0;
     $a['neighbors'] =
-      $this->build_network_helper($basenode, $type, $maxdepth, $depth);
+      $this->build_network_helper($basenode, $type, $maxdepth, 1);
   }
   
-  function build_network_helper($basenode, $type, $maxdepth = 5, $depth = 0) {
-    $depth += 1;
-    $b = array();
+  function build_network_helper($basenode, $type, $maxdepth, $depth) {
+    $friends = array();
     if ($depth <= $maxdepth) {
 	foreach ($this->db->get_data($basenode, $type) as $node) {
-	  $a =& $this->network[$node[1]][$node[0]];
-	  //	  if (!isset($a)) { //node info is always the same
-	    $a['display_name']=$node[2];
+	  $a =& $this->network[$node['type']][$node['value']];
+	  //FIX ME
+	  if (!isset($a)) { //node info is always the same
+	    $a['display_name']=$node['display_name'];
+	    $a['depth']=$depth;
 	    $a['neighbors'] = 
-	      array_merge((array)$a['neighbors'],
-			  $this->build_network_helper($node[0],
-						      $node[1],
+	      //array_merge((array)$a['neighbors'],
+			  $this->build_network_helper($node['value'],
+						      $node['type'],
 						      $maxdepth,
-						      $depth));
-	    $b[$node[1]][$node[0]] = $node[2]; //store friends
-	    //}
+						      $depth + 1));
+	    //store friends
+	    $friends[$node['type']][$node['value']] = $node['display_name'];
+	  }
 	}
     }
-    return $b;
+    return $friends;
   }
-  
-  
 }
 ?>
