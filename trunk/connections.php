@@ -6,9 +6,17 @@ require_once 'Image/GraphViz.php';
 require_once 'MDB2.php';
 require_once 'config/config.php';
 
-class DBGraphNav_DBCon {
+class DBGraphNav {
+  function __construct() {
+    $this->cfg = new DBGraphNav_Config; 
+    $this->db = new DBGraphNav_DBCon; //create the database class
+  }
+
+
+}
+
+class DBGraphNav_DBCon extends DBGraphNav{
   function get_data($parentnode, $data_type) {
-    $cfg = new DBGraphNav_Config; //broken, decide on config style
     foreach ($cfg->get_queries($parentnode, $data_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
       $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
@@ -29,12 +37,7 @@ class DBGraphNav_DBCon {
 }
 
 
-class DBGraphNav_Network {
-  //  $network = Array();
-
-  function __construct() {
-    $this->db = new DBGraphNav_DBCon; //create the database class
-  }
+class DBGraphNav_Network extends DBGraphNav{
 
   /*Assumes build_network has been called previously.
     

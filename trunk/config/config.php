@@ -8,9 +8,6 @@ class DBGraphNav_Config {
     }
   }
 
-  function __destruct() {
-
-  }
   /*
     This function returns an Array containing subelements consisting of
     an array containing:
