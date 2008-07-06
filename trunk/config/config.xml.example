@@ -1,77 +1,86 @@
 <dbgraphnav>
-<database>
-<DSN>
-<phptype>pgsql</phptype>
-<dbsyntax></dbsyntax>
-<protocol></protocol>
-<hostspec>darwin.nescent.org</hostspec>
-<database>treetapper</database>
-<username>treetapper_select</username>
-<password></password>
-<proto_opts></proto_opts>
-<option></option>
-</DSN>
-<friend_finder>
+  <database>
+    <DSN>
+      <phptype>pgsql</phptype>
+      <dbsyntax></dbsyntax>
+      <protocol></protocol>
+      <hostspec>darwin.nescent.org</hostspec>
+      <database>treetapper</database>
+      <username>treetapper_select</username>
+      <password></password>
+      <proto_opts></proto_opts>
+      <option></option>
+    </DSN>
 
-<person>
-<query_string parentnode="$1">
-SELECT referencetoperson_reference AS value, 
-       'reference' AS type,
-       reference_title AS display_name
-FROM referencetoperson 
-LEFT JOIN reference
-ON referencetoperson_reference=reference_id
-WHERE referencetoperson_person = $1
-</query_string>
-</person>
+    <friend_finder>
+      <person>
+	<query_string parentnode="$1">
+	  SELECT referencetoperson_reference AS value, 
+	  'reference' AS type,
+	  reference_title AS display_name
+	  FROM referencetoperson 
+	  LEFT JOIN reference
+	  ON referencetoperson_reference=reference_id
+	  WHERE referencetoperson_person = $1
+	</query_string>
+      </person>
 
-<reference>
-<query_string parentnode="$1">
-SELECT referencetoperson_person AS value,
-       'person' AS type,
-       'person_first||' '||person_last AS display_name
-FROM referencetoperson
-LEFT JOIN person
-ON referencetoperson_person=person_id
-WHERE referencetoperson_reference = $1
-</query_string>
+      <reference>
+	<query_string parentnode="$1">
+	  SELECT referencetoperson_person AS value,
+	  'person' AS type,
+	  person_first||' '||person_last AS display_name
+	  FROM referencetoperson
+	  LEFT JOIN person
+	  ON referencetoperson_person=person_id
+	  WHERE referencetoperson_reference = $1
+	</query_string>
+      </reference>
 
-</reference>
+      <example_type>
+	<callback_url>http://google.com/</callback_url>
+	<query_string>SELECT * FROM treetype</query_string>
+	<display_options>display opts</display_options>
+      </example_type>
 
-<example_type>
-<DSN></DSN>
-<callback_url>http://google.com/</callback_url>
-<query_string>SELECT * FROM treetype</query_string>
-<display_options>display opts</display_options>
-</example_type>
+      <example_type2>
+	<DSN>DSN</DSN>
+	<callback_url>Callback URL</callback_url>
+	<query_string>query string</query_string>
+	<display_options>display opts</display_options>
+      </example_type2>
+    </friend_finder>
+  </database>
 
-<example_type2>
-<DSN>DSN</DSN>
-<callback_url>Callback URL</callback_url>
-<query_string>query string</query_string>
-<display_options>display opts</display_options>
-</example_type2>
-</friend_finder>
-</database>
+  <graphing>
+    <graphviz>
+      <binPath>/usr/local/bin/</binPath>
+      <dotCommand>dot</dotCommand>
+      <neatoCommand>neato</neatoCommand>
+      <!-- The following two values are cast to bool in the code. DO
+	   NOT USE the text values TRUE or FALSE. -->
+      <directed>0</directed>
+      <strict>1</strict>
+      <name>G</name>
+    </graphviz>
+    <caching>
+      <path_to_cache></path_to_cache>
+      <age_too_new></age_too_new>
+      <behavior></behavior>
+      <limit_size></limit_size>
+    </caching>
+    <limiting>
+      <max_tree_depth></max_tree_depth>
+      <max_nodes></max_nodes>
+    </limiting>
 
-<graphing>
-<graphviz>
-<binPath></binPath>
-<dotCommand></dotCommand>
-<neatoCommand></neatoCommand>
-</graphviz>
-<caching>
-<path_to_cache></path_to_cache>
-<age_too_new></age_too_new>
-<behavior></behavior>
-<limit_size></limit_size>
-</caching>
-<limiting>
-<max_tree_depth></max_tree_depth>
-<max_nodes></max_nodes>
-</limiting>
-<display_options>
+    <display_options>
+	<overlap>false</overlap>
+    </display_options>
 
-</display_options>
-</graphing>
+    <misc>
+      <wordwrap>20</wordwrap>
+    </misc>
+
+  </graphing>
 </dbgraphnav>
