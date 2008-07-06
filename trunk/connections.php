@@ -1,6 +1,7 @@
 <?php
 
-  // CURRENTLY somewhat HACKY. clean up later
+  // CURRENTLY a bit HACKY. clean up soon
+
 
 require_once 'Image/GraphViz.php';
 require_once 'MDB2.php';
@@ -18,10 +19,11 @@ class DBGraphNav_DBCon extends DBGraphNav{
   function get_data($parentnode, $data_type) {
     foreach ($this->cfg->get_queries($parentnode, $data_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
-      $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
       if (PEAR::isError($db)) {
 	die($db->getMessage());
       }
+      $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
+
       //      $db->setLimit(10); //debugging, lowers server load
       $result =& $db->query($qry["query_string"]);
       if (PEAR::isError($result)) {
