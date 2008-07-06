@@ -25,16 +25,19 @@ Working installations of:
   * Your database of choice
   * MDB2 (requires PEAR)
   * Image_Graphviz (requires PEAR)
+  * Graphviz
 
 === Installing MDB2 ===
 More info [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html on the project page]:
 
 In short, install MDB2 and then install the DB package you need:
 {{{
-$ pear install MDB2
+$ sudo pear install MDB2
 
-$ pear install MDB2#pgsql
+$ sudo pear install MDB2#pgsql
 }}}
+
+(You need to make sure the php extension for your selected database is installed. For example, on ubuntu, you may need to run {{{sudo apt-get install php5-pgsql}}} prior to installing the PEAR module. Don't forget to restart your webserver after installing a new php extension.)
 
 === Installing Image_Graphviz ===
 This program has been developed using version 1.3.0RC3. To install this beta package, issue the command
