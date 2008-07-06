@@ -1,6 +1,5 @@
 <?php
 
-
 class DBGraphNav_Config {
   function __construct() {
     if (!$this->cfg = simplexml_load_file('config/config.xml')) {
@@ -48,7 +47,7 @@ class DBGraphNav_Config {
   }
 
   /*
-    Converts an XML representation of a DSN to one usable by php (that is
+    Converts an XML representation of a DSN to one usable by php (that is,
     either an array or a string).
   */
   private function DSN2php($DSNin) {
@@ -57,8 +56,8 @@ class DBGraphNav_Config {
       return $trimmed;
     } else {
       $outary = Array();
-      //Throws a warning when children() is empty. This is expected behavior.
       $a = error_reporting(1); //temporarily disable warnings
+      //Throws a warning when children() is empty. This is expected behavior.
       foreach ($DSNin->children() as $element) {
 	$outary[$element->getName()] = (string) $element;
       }
@@ -89,8 +88,8 @@ class DBGraphNav_Config {
       return $newDSN;
     } elseif (is_array($newDSN)){
       if (is_string($default_DSN = $this->get_default_DSN())) {
-	//we can't merge an array and a string,
-	//so we default to the override value
+ 	//we can't merge an array and a string,
+	//so we default to the string for the override value
 	return $newDSN;
       } elseif (is_array($default_DSN)) {
 	//Actually merge two arrays

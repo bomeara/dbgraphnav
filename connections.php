@@ -7,17 +7,19 @@ require_once 'MDB2.php';
 require_once 'config/config.php';
 
 class DBGraphNav {
+  private static $instance;
+
   function __construct() {
-    $this->cfg = new DBGraphNav_Config; 
-    $this->db = new DBGraphNav_DBCon; //create the database class
+    $this->cfg = new DBGraphNav_Config;
   }
-
-
+ 
 }
 
 class DBGraphNav_DBCon extends DBGraphNav{
+
   function get_data($parentnode, $data_type) {
-    foreach ($cfg->get_queries($parentnode, $data_type) as $qry){
+    //    $this->cfg = new DBGraphNav_Config;
+    foreach ($this->cfg->get_queries($parentnode, $data_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
       $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
       if (PEAR::isError($db)) {
@@ -38,7 +40,10 @@ class DBGraphNav_DBCon extends DBGraphNav{
 
 
 class DBGraphNav_Network extends DBGraphNav{
-
+  function __construct() {
+    parent::__construct();
+        $this->db = new DBGraphNav_DBCon; //create the database class
+  }
   /*Assumes build_network has been called previously.
     
     Makes a dot representation of the data stored in the network class 
@@ -60,6 +65,8 @@ class DBGraphNav_Network extends DBGraphNav{
 	//conflicts with a graph's naming scheme, it may be
 	//hashed instead. It is not currently hashed for 
 	//performance reasons.
+	//	$cur_node = $graph->_escape("$type||||$id");
+	//FIX ME
 	$cur_node = "$type||||$id";
 	$graph->addNode($cur_node,
 			array( //make wordwrap configurable later
