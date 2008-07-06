@@ -20,7 +20,7 @@ class DBGraphNav_DBCon extends DBGraphNav{
     foreach ($this->cfg->get_queries($parentnode, $data_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
       if (PEAR::isError($db)) {
-	die($db->getMessage());
+	die($db->getMessage().', '.$db->getDebugInfo());
       }
       $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
 
