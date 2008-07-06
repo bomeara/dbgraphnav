@@ -1,10 +1,36 @@
 <?php
 
+  //Now a singleton configuration object. Each instantion should return
+  //the same copy.
 class DBGraphNav_Config {
-  function __construct() {
+  static private $instance;
+  
+  public function getInstance() {
+    if (!isset(self::$instance)){
+      self::$instance = new DBGraphNav_Config();
+    }
+    return self::$instance;
+  }
+  
+  //don't call this directly with the new keywork, instead use:
+  //DBGraphNav_Config::getInstance();
+  private function __construct() {
     if (!$this->cfg = simplexml_load_file('config/config.xml')) {
       die( "Error loading config file!\n");
     }
+    $this->graphing = $this->xml2array($this->cfg->graphing->children());
+  }
+
+  function xml2array($xml) {
+    foreach ($xml as $name=>$value) {
+      $children = $value->children();
+      if (count($children) > 0) {
+	$outary[$name] = $this->xml2array($children);
+      } else {
+	$outary[$name] = (string)$value;
+      }
+    }
+    return $outary;
   }
 
   /*

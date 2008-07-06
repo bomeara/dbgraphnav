@@ -33,6 +33,9 @@ All values are wrapped within a single dbgraphnav root tag.
       * binPath - base path to Graphviz commands
       * dotCommand - path to the Graphviz dot command
       * neatoCommand - path to the Graphviz neato command
+      * directed - directed or undirected graph type
+      * strict - collapse multiple connections between two nodes into a single line
+      * name - sets the name of the graph. Eventually Useful for multiple graphs on a single html page for specifying image maps. 
     * caching
       * path_to_cache - path to the image, query, and map cache
       * age_too_new - graph file is so new we don't even look to see if we should redraw it
@@ -42,4 +45,6 @@ All values are wrapped within a single dbgraphnav root tag.
       * max_tree_depth - maximum depth of the search for friends
       * max_nodes - maximum number of nodes, anything more triggers the pruning algorithm.
     * display_options - default display options which are overriden by those in a type. Each attribute is a sub-element selected from this list: http://www.graphviz.org/doc/info/attrs.html
+    * misc - misc. options which don't fit anywhere else.
+      * wordwrap - split node display lines at this many characters
 
