@@ -12,7 +12,7 @@ class DBGraphNav_Config {
     return self::$instance;
   }
   
-  //don't call this directly with the new keywork, instead use:
+  //don't call this directly with the new keyword, instead use:
   //DBGraphNav_Config::getInstance();
   private function __construct() {
     if (!$this->cfg = simplexml_load_file('config/config.xml')) {
