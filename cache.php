@@ -4,17 +4,14 @@ require_once 'connections.php';
 class DBGraphNav_Cache {
   function __construct() {
     $this->cfg = DBGraphNav_Config::getInstance();
-    $this->queryhash = sha1($_SERVER['QUERY_STRING']);
     $this->graph = new DBGraphNav_Network;
+    //    $this->graph->build_network(1, 'person');
   }
 
   function fetch() {
-    $dir = $this->cfg->graphing['caching']['path_to_cache'];
-    $h =& $this->queryhash;
-    $out = $dir . '/' . $h;
-
-    $this->graph->build_network(1, 'person');
-    $this->rgraph = $this->graph->get_graph();
+    $this->queryhash = sha1($_SERVER['QUERY_STRING']);
+    //output path to cached file without extension.
+    $out =$this->cfg->graphing['caching']['path_to_cache'] . $this->queryhash;
 
     switch (trim($this->cfg->graphing['caching']['behavior'])) {
     case 'simple':
@@ -25,11 +22,19 @@ class DBGraphNav_Cache {
     case 'complex':
 
     case 'none':
-      $this->rgraph->saveParsedGraph("$out.dot");
-      /* Image_Graphviz does not meet our needs for this portion, so
-	 we do it manually */
-      $result = exec("neato -Tcmapx -o$out.map -Tpng -o$out.png $out.dot");
-      echo $result;
+      $this->graph->save_dot("$out.dot");
+      /* Image_Graphviz does not meet our needs for this, so we do it
+	 manually */
+      $g =& $this->cfg->graphing;
+      $img = $g['graphviz']['outputImageFormat'];
+      /* This is safe without any escaping because it consists of
+	 configuration values and hashed user inputs, but no user
+	 input is directly used in this string.
+       */
+      $binpath =$g['graphviz']['binPath']; 
+      $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.dot";
+      $result = exec($exec);
+      return "$out.$img";
     }
     
   }

@@ -46,12 +46,12 @@ class DBGraphNav_Network {
     Makes a dot representation of the data stored in the network class 
     variable.
    */
-  function get_graph() {
+  function save_dot($output_filename) {
     $graph = new Image_Graphviz();
 
     //options.
     $opts =& $this->cfg->graphing['graphviz'];
-    $graph->binPath = $opts['binPath'];
+    //$graph->binPath = $opts['binPath'];
     /* these 2 lines aren't usually necessary */
     //$graph->dotCommand = $opts['dotCommand'];
     //$graph->neatoCommand = $opts['neatoCommand'];
@@ -84,19 +84,13 @@ class DBGraphNav_Network {
 	}
       }
     }
-    //$graph->saveParsedGraph("output.dot");
+    $graph->saveParsedGraph($output_filename);
     //return $graph->image('png', 'neato');
-    return $graph;
-  }
+    }
   
   //assumes build_network has been called. For debugging, mostly.
   function get_network() {
     return $this->network;
-  }
-
-  //mostly for testing. assumes build_network has been called.
-  function get_image() {
-    return $this->get_graph()->image('png', 'neato');
   }
 
   /*This builds the network object using SQL queries. It takes the
