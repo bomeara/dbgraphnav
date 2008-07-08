@@ -2,19 +2,15 @@
 
   // CURRENTLY a bit HACKY. clean up soon
 
-
 require_once 'Image/GraphViz.php';
 require_once 'MDB2.php';
 require_once 'config/config.php';
 
+class DBGraphNav_DBCon{
 
-class DBGraphNav {
   function __construct() {
     $this->cfg = DBGraphNav_Config::getInstance();
   }
-}
-
-class DBGraphNav_DBCon extends DBGraphNav{
 
   function get_data($parentnode, $data_type) {
     foreach ($this->cfg->get_queries($parentnode, $data_type) as $qry){
@@ -38,9 +34,10 @@ class DBGraphNav_DBCon extends DBGraphNav{
 }
 
 
-class DBGraphNav_Network extends DBGraphNav{
+class DBGraphNav_Network {
+
   function __construct() {
-    parent::__construct();
+    $this->cfg = DBGraphNav_Config::getInstance();
     $this->db = new DBGraphNav_DBCon; //create the database connection
   }
 
@@ -49,7 +46,7 @@ class DBGraphNav_Network extends DBGraphNav{
     Makes a dot representation of the data stored in the network class 
     variable.
    */
-  function get_dot() {
+  function get_graph() {
     $graph = new Image_Graphviz();
 
     //options.
@@ -60,7 +57,7 @@ class DBGraphNav_Network extends DBGraphNav{
     //$graph->neatoCommand = $opts['neatoCommand'];
     $graph->graph = array('directed' =>(bool)$opts['directed'],
 			  'strict'   =>(bool)$opts['strict'],
-			  'name'     =>$opts['name'],
+		 	  'name'     =>$opts['name'],
 			 'attributes'=>$this->cfg->graphing['display_options']);
 
     //type
@@ -87,13 +84,19 @@ class DBGraphNav_Network extends DBGraphNav{
 	}
       }
     }
-    $graph->saveParsedGraph("output.dot");
-    return $graph->image('png', 'neato');
+    //$graph->saveParsedGraph("output.dot");
+    //return $graph->image('png', 'neato');
+    return $graph;
   }
   
   //assumes build_network has been called. For debugging, mostly.
   function get_network() {
     return $this->network;
+  }
+
+  //mostly for testing. assumes build_network has been called.
+  function get_image() {
+    return $this->get_graph()->image('png', 'neato');
   }
 
   /*This builds the network object using SQL queries. It takes the
