@@ -17,19 +17,22 @@
 	<query_string parentnode="$1">
 	  SELECT referencetoperson_reference AS value, 
 	  'reference' AS type,
-	  reference_title AS display_name
+	  reference_title AS display_name,
+	  'main.php?id='||referencetoperson_reference||'&amp;type=reference&amp;depth=2' AS callback_url
 	  FROM referencetoperson 
 	  LEFT JOIN reference
 	  ON referencetoperson_reference=reference_id
 	  WHERE referencetoperson_person = $1
 	</query_string>
+	<callback_url></callback_url>
       </person>
 
       <reference>
 	<query_string parentnode="$1">
 	  SELECT referencetoperson_person AS value,
 	  'person' AS type,
-	  person_first||' '||person_last AS display_name
+	  person_first||' '||person_last AS display_name,
+	  'main.php?id='||referencetoperson_person||'&amp;type=person&amp;depth=2' AS callback_url
 	  FROM referencetoperson
 	  LEFT JOIN person
 	  ON referencetoperson_person=person_id
@@ -37,36 +40,29 @@
 	</query_string>
       </reference>
 
-      <example_type>
-	<callback_url>http://google.com/</callback_url>
-	<query_string>SELECT * FROM treetype</query_string>
-	<display_options>display opts</display_options>
-      </example_type>
-
-      <example_type2>
-	<DSN>DSN</DSN>
-	<callback_url>Callback URL</callback_url>
-	<query_string>query string</query_string>
-	<display_options>display opts</display_options>
-      </example_type2>
     </friend_finder>
   </database>
 
   <graphing>
     <graphviz>
-      <binPath>/usr/local/bin/</binPath>
-      <dotCommand>dot</dotCommand>
-      <neatoCommand>neato</neatoCommand>
-      <!-- The following two values are cast to bool in the code. DO
-	   NOT USE the text values TRUE or FALSE. -->
+      <!-- System path to graphviz dot or neato binary. Absolute path
+      unless Graphviz is in the $PATH variable -->
+      <binPath>/usr/local/bin/neato</binPath>
+      <outputImageFormat>png</outputImageFormat>
+      <!-- further extra command line arguments to graphviz -->
+      <commandLineArgs>-x</commandLineArgs>
+      <!-- Use 1 or 0 for these next two values. -->
       <directed>0</directed>
       <strict>1</strict>
       <name>G</name>
     </graphviz>
     <caching>
-      <path_to_cache></path_to_cache>
+      <!-- Relative to the application root unless a full path is
+      specified. Be sure that this directory is writeable by the
+      webserver process. -->
+      <path_to_cache>cache/</path_to_cache> 
       <age_too_new></age_too_new>
-      <behavior></behavior>
+      <behavior>none</behavior>
       <limit_size></limit_size>
     </caching>
     <limiting>
@@ -74,6 +70,9 @@
       <max_nodes></max_nodes>
     </limiting>
 
+    <!-- Graphviz display options. See:
+	 http://www.graphviz.org/doc/info/attrs.html
+	 for more info. -->
     <display_options>
 	<overlap>false</overlap>
     </display_options>

@@ -71,7 +71,8 @@ class DBGraphNav_Network {
 	*/
 	$cur_node = $graph->_escape("$type||||$id");
 	$graph->addNode($cur_node,
-			array('label' => 
+			array('URL' => $value["callback_url"],
+			      'label' => 
 			      wordwrap($value["display_name"],
 				   $this->cfg->graphing['misc']['wordwrap'])));
 	//node neighbor type
@@ -136,6 +137,7 @@ class DBGraphNav_Network {
 	  } else { //otherwise, pull all the info
 	    $a['display_name']=$node['display_name'];
 	    $a['depth']=$depth;
+	    $a['callback_url'] = $node['callback_url'];
 	    $a['neighbors'] =  
 	      $this->build_network_helper($node['value'],
 					  $node['type'],

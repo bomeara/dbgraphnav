@@ -60,7 +60,7 @@ class DBGraphNav_Config {
 	$atr_replace[]=$sr_lookup[$a];
       }
       //do the replacement
-      $query_string = //(string)$element->query_string;
+      $query_string = 
 	str_replace($atr_search, 
 		    $atr_replace, 
 		    (string)$element->query_string);
