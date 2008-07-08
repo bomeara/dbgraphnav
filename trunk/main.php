@@ -7,6 +7,6 @@ $test->graph->build_network($_REQUEST["id"], $_REQUEST["type"], $_REQUEST["depth
 //echo $test->get_image();
 ?>
 <img src="<?php
-echo $test->fetch();
-?>
-">
+$result = $test->fetch();
+echo $result[0] . '" usemap = "#G" border="0" />';
+readfile($result[1]); ?>

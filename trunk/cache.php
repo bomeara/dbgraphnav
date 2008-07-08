@@ -34,7 +34,7 @@ class DBGraphNav_Cache {
       $binpath =$g['graphviz']['binPath']; 
       $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.dot";
       $result = exec($exec);
-      return "$out.$img";
+      return Array("$out.$img", "$out.map");
     }
     
   }
