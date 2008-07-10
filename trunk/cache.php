@@ -11,12 +11,17 @@ class DBGraphNav_Cache {
   function fetch() {
     $this->queryhash = sha1($_SERVER['QUERY_STRING']);
     //output path to cached file without extension.
-    $out =$this->cfg->graphing['caching']['path_to_cache'] . $this->queryhash;
+    $gcfg =& $this->cfg->graphing;
+    $out = $gcfg['caching']['path_to_cache'] . $this->queryhash;
+    $img = $gcfg['graphviz']['outputImageFormat'];
 
     switch (trim($this->cfg->graphing['caching']['behavior'])) {
     case 'simple':
-      if ($time) {
-	
+      //we supress errors because the file may not exist, which is fine
+      if ((time() - @filemtime("$out.dot")) < 30) {
+	$age= (time()-filemtime("$out.dot"));
+	return Array("$out.$img","$out.map", $age);
+	break;
       }
 
     case 'complex':
@@ -25,16 +30,14 @@ class DBGraphNav_Cache {
       $this->graph->save_dot("$out.dot");
       /* Image_Graphviz does not meet our needs for this, so we do it
 	 manually */
-      $g =& $this->cfg->graphing;
-      $img = $g['graphviz']['outputImageFormat'];
       /* This is safe without any escaping because it consists of
 	 configuration values and hashed user inputs, but no user
 	 input is directly used in this string.
        */
-      $binpath =$g['graphviz']['binPath']; 
+      $binpath =$gcfg['graphviz']['binPath']; 
       $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.dot";
       $result = exec($exec);
-      return Array("$out.$img", "$out.map");
+      return Array("$out.$img", "$out.map", 0);
     }
     
   }
