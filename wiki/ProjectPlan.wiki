@@ -93,8 +93,6 @@ June 22-28
   * Write production code for integrating php and Graphviz
   * Implement necessary server-callback configuration for users
 
-----
-(The future is below this line)
 
 June 29-July 5
 
@@ -102,6 +100,9 @@ June 29-July 5
   * Dot to image
   * First version of parameter interaction
   * Move hardcoded parameters into config file
+
+----
+(The future is below this line)
 
 July 6-12
 
