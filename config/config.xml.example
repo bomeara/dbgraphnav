@@ -18,7 +18,7 @@
 	  SELECT referencetoperson_reference AS value, 
 	  'reference' AS type,
 	  reference_title AS display_name,
-	  'main.php?id='||referencetoperson_reference||'&amp;type=reference&amp;depth=2' AS callback_url
+	  'main.php?id='||referencetoperson_reference||'&amp;type=reference' AS callback_url
 	  FROM referencetoperson 
 	  LEFT JOIN reference
 	  ON referencetoperson_reference=reference_id
@@ -32,7 +32,7 @@
 	  SELECT referencetoperson_person AS value,
 	  'person' AS type,
 	  person_first||' '||person_last AS display_name,
-	  'main.php?id='||referencetoperson_person||'&amp;type=person&amp;depth=2' AS callback_url
+	  'main.php?id='||referencetoperson_person||'&amp;type=person' AS callback_url
 	  FROM referencetoperson
 	  LEFT JOIN person
 	  ON referencetoperson_person=person_id
@@ -61,8 +61,9 @@
       specified. Be sure that this directory is writeable by the
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
-      <age_too_new></age_too_new>
-      <behavior>none</behavior>
+      <!-- seconds till "simple" considers the graph too old -->
+      <age_limit>300</age_limit>
+      <behavior>simple</behavior>
       <limit_size></limit_size>
     </caching>
     <limiting>
@@ -75,6 +76,8 @@
 	 for more info. -->
     <display_options>
 	<overlap>false</overlap>
+	<splines>true</splines>
+	<pack>true</pack>
     </display_options>
 
     <misc>

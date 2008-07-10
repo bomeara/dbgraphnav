@@ -16,8 +16,11 @@ $test->graph->build_network($_REQUEST["id"], $_REQUEST["type"], $depth);
 //print_r($test->get_network());
 //echo $test->get_data("reference", 807);
 //echo $test->get_image();
-?>
-<img src="<?php
 $result = $test->fetch();
+
+echo "Cache Age: " . $result[2] . "<br>";
+echo '<object type="image/svg+xml" data="';
 echo $result[0] . '" usemap = "#G" border="0" />';
-readfile($result[1]); echo $result[2];?>
+readfile($result[1]);
+
+?>
