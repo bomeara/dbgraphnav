@@ -18,7 +18,7 @@ class DBGraphNav_Cache {
     switch (trim($this->cfg->graphing['caching']['behavior'])) {
     case 'simple':
       //we supress errors because the file may not exist, which is fine
-      $age= (time()-filemtime("$out.dot"));
+      $age= (time()-@filemtime("$out.dot"));
       if ($age < $gcfg["caching"]["age_limit"]) {
 	return Array("$out.$img","$out.map", $age);
 	break;
