@@ -21,6 +21,7 @@ $result = $test->fetch();
 echo "Cache Age: " . $result[2] . "<br>";
 echo '<object type="image/svg+xml" data="';
 echo $result[0] . '" usemap = "#G" border="0" />';
+//echo image map
 readfile($result[1]);
 
 ?>

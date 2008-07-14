@@ -101,17 +101,18 @@ June 29-July 5
   * First version of parameter interaction
   * Move hardcoded parameters into config file
 
-----
-(The future is below this line)
-
 July 6-12
 
   * Continue to clean up hardcoding vs. config file
   * clickable image maps
   * callback urls in code and config file
 
+----
+(The future is below this line)
+
 July 13-19
 
+  * Fix Base Node problem
   * Continue image maps/callback urls
   * implement code to make the results visible within an iframe (*milestone: first true integration point*)
   * Fix what's broken
@@ -132,15 +133,15 @@ July 27-August 2
   * Implement "next features"
   * Work with implementors to get it functional
 
-Weekly Tasks:
+August 2-9
+  * Code cleanup
+  * Further features
+  * Clean up documentation
 
-  * Monday
-    * Send project status update to list
-      * Accomplishments
-      * Goals for next week
-  * Friday
-    * Extend detailed project plan by at least 1 week
-    * Make sure Design Doc is not self-contradictory
+August 9+
+  * Continue bug fixes
+  * Code cleanup
+  * Documentation
 
 = Overview =
 
