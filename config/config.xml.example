@@ -36,6 +36,15 @@
       </person>
 
       <reference>
+	<query_base parentnode="$1">
+	  SELECT $1 AS value,
+	  'reference' AS type,
+	  reference_title AS display_name,
+	  'main.php?id=$1&amp;type=reference' AS callback_url
+	  FROM reference
+	  WHERE reference_id = '$1'
+	</query_base>
+
 	<query_string parentnode="$1">
 	  SELECT referencetoperson_person AS value,
 	  'person' AS type,
