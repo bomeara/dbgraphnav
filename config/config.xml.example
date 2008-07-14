@@ -7,7 +7,7 @@
       <hostspec>darwin.nescent.org</hostspec>
       <database>treetapper</database>
       <username>treetapper_select</username>
-      <password>3ru5abez</password>
+      <password></password>
       <proto_opts></proto_opts>
       <option></option>
     </DSN>
