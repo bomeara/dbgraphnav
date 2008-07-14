@@ -14,7 +14,7 @@ class DBGraphNav_Config {
   
   //don't call this directly with the new keyword, instead use:
   //DBGraphNav_Config::getInstance();
-  function __construct() {
+  private function __construct() {
     if (!$this->cfg = simplexml_load_file('config/config.xml')) {
       die( "Error loading config file!\n");
     }
@@ -43,7 +43,7 @@ class DBGraphNav_Config {
 
     This allows us to run multiple queries for the same datatype.
    */
-  function get_queries($parentnode, $type, $whichqry = "query_string") {
+  function get_queries($parentnode, $type, $query_type = "query_string") {
     $outary = Array();
     foreach ($this->cfg->database->friend_finder->$type as $element) {
       $atr_search = Array();
@@ -55,7 +55,7 @@ class DBGraphNav_Config {
       $sr_lookup = Array( "parentnode" => $parentnode);
     
       //build the replacement array
-      foreach($element->$whichqry->attributes() as $a=>$b){
+      foreach($element->$query_type->attributes() as $a=>$b){
 	$atr_search[] =$b;
 	$atr_replace[]=$sr_lookup[$a];
       }
@@ -63,7 +63,7 @@ class DBGraphNav_Config {
       $query_string = 
 	str_replace($atr_search, 
 		    $atr_replace, 
-		    (string)$element->$whichqry);
+		    (string)$element->$query_type);
       $outary[] = Array("DSN" => $this->merge_DSN($element->DSN),
 			"query_string" => $query_string,
 			"callback_url" => (string)$element->callback_url,
