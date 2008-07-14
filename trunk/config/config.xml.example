@@ -7,13 +7,22 @@
       <hostspec>darwin.nescent.org</hostspec>
       <database>treetapper</database>
       <username>treetapper_select</username>
-      <password></password>
+      <password>3ru5abez</password>
       <proto_opts></proto_opts>
       <option></option>
     </DSN>
 
     <friend_finder>
       <person>
+	<query_base parentnode="$1">
+	  SELECT $1 AS value,
+	  'person' AS type,
+	  person_first||' '||person_last AS display_name,
+	  'main.php?id=$1&amp;type=person' AS callback_url
+	  FROM person
+	  WHERE person_id = '$1'
+	</query_base>
+
 	<query_string parentnode="$1">
 	  SELECT referencetoperson_reference AS value, 
 	  'reference' AS type,
@@ -22,9 +31,8 @@
 	  FROM referencetoperson 
 	  LEFT JOIN reference
 	  ON referencetoperson_reference=reference_id
-	  WHERE referencetoperson_person = $1
+	  WHERE referencetoperson_person = '$1'
 	</query_string>
-	<callback_url></callback_url>
       </person>
 
       <reference>
@@ -36,7 +44,7 @@
 	  FROM referencetoperson
 	  LEFT JOIN person
 	  ON referencetoperson_person=person_id
-	  WHERE referencetoperson_reference = $1
+	  WHERE referencetoperson_reference = '$1'
 	</query_string>
       </reference>
 
@@ -62,7 +70,7 @@
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
       <!-- seconds till "simple" considers the graph too old -->
-      <age_limit>300</age_limit>
+      <age_limit>30</age_limit>
       <behavior>simple</behavior>
       <limit_size></limit_size>
     </caching>

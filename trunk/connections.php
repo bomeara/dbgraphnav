@@ -97,7 +97,6 @@ class DBGraphNav_Network {
     $result = $this->db->get_data($basenode, $type, "query_base");
     $node = $result[0];
     $a =& $this->network[$type][$basenode];
-    print_r($result);
     $a['display_name']= $node['display_name'];
     $a['depth']=0;
     $a['callback_url'] = $node['callback_url'];
