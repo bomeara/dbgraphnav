@@ -12,15 +12,14 @@ class DBGraphNav_DBCon{
     $this->cfg = DBGraphNav_Config::getInstance();
   }
 
-  function get_data($parentnode, $data_type) {
-    foreach ($this->cfg->get_queries($parentnode, $data_type) as $qry){
+  function get_data($parentnode, $data_type, $query_type) {
+    foreach ($this->cfg->get_queries($parentnode, $data_type, $query_type) as $qry){
       $db =& MDB2::connect($qry["DSN"]);
       if (PEAR::isError($db)) {
 	die($db->getMessage().", \n".$db->getDebugInfo());
       }
       $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
 
-      //      $db->setLimit(10); //debugging, lowers server load
       $result =& $db->query($qry["query_string"]);
       if (PEAR::isError($result)) {
 	die($result->getMessage());
@@ -51,10 +50,6 @@ class DBGraphNav_Network {
 
     //options.
     $opts =& $this->cfg->graphing['graphviz'];
-    //$graph->binPath = $opts['binPath'];
-    /* these 2 lines aren't usually necessary */
-    //$graph->dotCommand = $opts['dotCommand'];
-    //$graph->neatoCommand = $opts['neatoCommand'];
     $graph->graph = array('directed' =>(bool)$opts['directed'],
 			  'strict'   =>(bool)$opts['strict'],
 		 	  'name'     =>$opts['name'],
@@ -99,9 +94,13 @@ class DBGraphNav_Network {
     form that is easily converted into a dot file.
    */
   function build_network($basenode, $type, $maxdepth = 5) {
+    $result = $this->db->get_data($basenode, $type, "query_base");
+    $node = $result[0];
     $a =& $this->network[$type][$basenode];
-    $a['display_name']='BASE NODE'; //FIX ME
+    print_r($result);
+    $a['display_name']= $node['display_name'];
     $a['depth']=0;
+    $a['callback_url'] = $node['callback_url'];
     $a['neighbors'] =
       $this->build_network_helper($basenode, $type, $maxdepth, 1);
   }
@@ -114,7 +113,7 @@ class DBGraphNav_Network {
   private function build_network_helper($basenode, $type, $maxdepth, $depth) {
     $friends = array();
     if ($depth <= $maxdepth) {
-	foreach ($this->db->get_data($basenode, $type) as $node) {
+      foreach ($this->db->get_data($basenode, $type, "query_string") as $node) {
 	  $a =& $this->network[$node['type']][$node['value']];
 	  if (isset($a) ){
 	    if ($a['depth'] > $depth) {
