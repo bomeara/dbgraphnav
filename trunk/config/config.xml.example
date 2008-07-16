@@ -18,7 +18,8 @@
 	  SELECT $1 AS value,
 	  'person' AS type,
 	  person_first||' '||person_last AS display_name,
-	  'main.php?id=$1&amp;type=person' AS callback_url
+	  'main.php?id=$1&amp;type=person' AS callback_url,
+	  'shape=doublecircle' AS display_options
 	  FROM person
 	  WHERE person_id = '$1'
 	</query_base>
