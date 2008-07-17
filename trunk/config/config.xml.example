@@ -18,8 +18,8 @@
 	  SELECT $1 AS value,
 	  'person' AS type,
 	  person_first||' '||person_last AS display_name,
-	  'main.php?id=$1&amp;type=person' AS callback_url,
-	  'shape=doublecircle' AS display_options
+	  'id=$1&amp;type=person' AS callback_url,
+	  'shape=doublecircle, color=red' AS display_options
 	  FROM person
 	  WHERE person_id = '$1'
 	</query_base>
@@ -28,12 +28,17 @@
 	  SELECT referencetoperson_reference AS value, 
 	  'reference' AS type,
 	  reference_title AS display_name,
-	  'main.php?id='||referencetoperson_reference||'&amp;type=reference' AS callback_url
+	  'id='||referencetoperson_reference||'&amp;type=reference' AS callback_url,
+	  'shape=octagon' AS display_options
 	  FROM referencetoperson 
 	  LEFT JOIN reference
 	  ON referencetoperson_reference=reference_id
 	  WHERE referencetoperson_person = '$1'
 	</query_string>
+	<callback_url>main.php?</callback_url>
+	<display_options>
+	  color=blue
+	</display_options>
       </person>
 
       <reference>
@@ -41,7 +46,8 @@
 	  SELECT $1 AS value,
 	  'reference' AS type,
 	  reference_title AS display_name,
-	  'main.php?id=$1&amp;type=reference' AS callback_url
+	  'main.php?id=$1&amp;type=reference' AS callback_url,
+	  'shape=doubleoctagon' AS display_options
 	  FROM reference
 	  WHERE reference_id = '$1'
 	</query_base>
@@ -50,7 +56,8 @@
 	  SELECT referencetoperson_person AS value,
 	  'person' AS type,
 	  person_first||' '||person_last AS display_name,
-	  'main.php?id='||referencetoperson_person||'&amp;type=person' AS callback_url
+	  'main.php?id='||referencetoperson_person||'&amp;type=person' AS callback_url,
+	  'shape=ellipse' AS display_options
 	  FROM referencetoperson
 	  LEFT JOIN person
 	  ON referencetoperson_person=person_id
@@ -80,8 +87,8 @@
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
       <!-- seconds till "simple" considers the graph too old -->
-      <age_limit>30</age_limit>
-      <behavior>simple</behavior>
+      <age_limit>15</age_limit>
+      <behavior>none</behavior>
       <limit_size></limit_size>
     </caching>
     <limiting>
