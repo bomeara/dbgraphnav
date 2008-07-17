@@ -1,7 +1,5 @@
 <?php
 
-  // CURRENTLY a bit HACKY. clean up soon
-
 require_once 'Image/GraphViz.php';
 require_once 'MDB2.php';
 require_once 'config/config.php';
@@ -25,6 +23,8 @@ class DBGraphNav_DBCon{
 	die($result->getMessage());
       }
       while ($row = $result->fetchRow()) {
+	$row["xml_config_vals"]["callback_url"]=$qry['callback_url'];
+	$row["xml_config_vals"]["display_options"]=$qry['display_options'];
 	$return[] =$row;
       }
     }
@@ -65,13 +65,14 @@ class DBGraphNav_Network {
 	function provides a graphviz-compatible ID.
 	*/
 	$cur_node = $graph->_escape("$type||||$id");
-	$dopts1 = array('URL' => $value["callback_url"],
+	$dopts1 = array('URL' => 
+			  $value['xml_callback_url'] . $value["callback_url"],
 			'label' => 
 			wordwrap($value["display_name"],
 				 $this->cfg->graphing['misc']['wordwrap']));
-	$dopts2 = attrib_string2array($value["display_options"]);
-	$dopts = array_merge($dopts1, $dopts2);
-	print_r($dopts);
+	$dopts2 = $this->attrib_string2array($value["display_options"]);
+	$dopts3 = $this->attrib_string2array($value['xml_display_options']);
+	$dopts = array_merge($dopts1, $dopts3, $dopts2);
 	$graph->addNode($cur_node, $dopts);
 	//node neighbor type
 	foreach ($value["neighbors"] as $type2=>$value2) {
@@ -90,9 +91,9 @@ class DBGraphNav_Network {
   //simplistic, and a possible point for bugs later.
   function attrib_string2array($instr) {
     $ary = explode(",", $instr); 
-    foreach ($ary as $a=>$b) {
+    foreach ($ary as $b) {
       $ary2=explode("=", $b);
-      $resultary[trim($ary2[0])] = $ary2[1];
+      $resultary[trim($ary2[0])] = trim($ary2[1]);
     }
     return $resultary;
   }
@@ -114,6 +115,8 @@ class DBGraphNav_Network {
     $a['depth']=0;
     $a['callback_url'] = $node['callback_url'];
     $a['display_options']= $node['display_options'];
+    $a['xml_display_options']=$node['xml_config_vals']['display_options'];
+    $a['xml_callback_url']=$node['xml_config_vals']['callback_url'];
     $a['neighbors'] =
       $this->build_network_helper($basenode, $type, $maxdepth, 1);
   }
@@ -148,7 +151,10 @@ class DBGraphNav_Network {
 	  } else { //otherwise, pull all the info
 	    $a['display_name']=$node['display_name'];
 	    $a['depth']=$depth;
+	    $a['display_options']= $node['display_options'];
 	    $a['callback_url'] = $node['callback_url'];
+	    $a['xml_display_options']=$node['xml_config_vals']['display_options'];
+	    $a['xml_callback_url']=$node['xml_config_vals']['callback_url'];
 	    $a['neighbors'] =  
 	      $this->build_network_helper($node['value'],
 					  $node['type'],
