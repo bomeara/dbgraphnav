@@ -88,7 +88,7 @@
       <path_to_cache>cache/</path_to_cache> 
       <!-- seconds till "simple" considers the graph too old -->
       <age_limit>15</age_limit>
-      <behavior>none</behavior>
+      <behavior>none</behavior> <!--none, simple, or complex (not yet) -->
       <limit_size></limit_size>
     </caching>
     <limiting>
@@ -103,6 +103,7 @@
 	<overlap>false</overlap>
 	<splines>true</splines>
 	<pack>true</pack>
+	<size>7,7</size>
     </display_options>
 
     <misc>
