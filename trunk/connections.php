@@ -67,12 +67,13 @@ class DBGraphNav_Network {
 	$cur_node = $graph->_escape("$type||||$id");
 	$dopts1 = array('URL' => 
 			  $value['xml_callback_url'] . $value["callback_url"],
+			'tooltip' =>$value["display_name"],
 			'label' => 
 			wordwrap($value["display_name"],
 				 $this->cfg->graphing['misc']['wordwrap']));
 	$dopts2 = $this->attrib_string2array($value["display_options"]);
 	$dopts3 = $this->attrib_string2array($value['xml_display_options']);
-	$dopts = array_merge($dopts1, $dopts3, $dopts2);
+	$dopts = array_merge($dopts1, (array)$dopts3, $dopts2);
 	$graph->addNode($cur_node, $dopts);
 	//node neighbor type
 	foreach ($value["neighbors"] as $type2=>$value2) {
@@ -84,16 +85,15 @@ class DBGraphNav_Network {
 	}
       }
     }
-    $graph->saveParsedGraph($output_filename);
-    //return $graph->image('png', 'neato');
+    return $graph->saveParsedGraph($output_filename);
     }
   
   //simplistic, and a possible point for bugs later.
   function attrib_string2array($instr) {
-    $ary = explode(",", $instr); 
-    foreach ($ary as $b) {
+    preg_match_all('/[^,"]*"[^"]*"|[^,]+/', $instr, $ary);
+    foreach ($ary[0] as $b) {
       $ary2=explode("=", $b);
-      $resultary[trim($ary2[0])] = trim($ary2[1]);
+      $resultary[trim($ary2[0])] = trim(trim($ary2[1],'"'));
     }
     return $resultary;
   }
