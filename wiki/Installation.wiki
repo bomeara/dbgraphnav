@@ -32,9 +32,9 @@ More info [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html o
 
 In short, install MDB2 and then install the DB package you need:
 {{{
-$ sudo pear install MDB2
+$ pear install MDB2
 
-$ sudo pear install MDB2#pgsql
+$ pear install MDB2#pgsql
 }}}
 
 (You need to make sure the php extension for your selected database is installed. For example, on Debian (or Ubuntu), you may need to run {{{sudo apt-get install php5-pgsql}}} prior to installing the PEAR module. Don't forget to restart your webserver after installing a new php extension.)
