@@ -6,7 +6,7 @@ Q: My server gives me this error:
 
 {{{Fatal error: Call to undefined method Image_GraphViz::_escape() in /home2/www/treetapper.nescent.org/site/html/dbgraphnav/connections.php on line 67}}}
 
-A: You aren't running Image_Graphviz 1.3RC3 or higher. You probably installed the release rather than beta package using pear. The RC package is, in fact, very stable, and includes numerous features this program takes advantage of. Consult the Installation instructions for more details. 
+A: You aren't running Image_Graphviz 1.3RC3 or higher. You probably installed the release (1.21) rather than beta package using pear. The RC package is, in fact, very stable, and includes numerous features this program takes advantage of. Consult the Installation instructions for more details. 
 
 {{{MDB2 Error: connect failed, _doConnect: [Error message: unable to establish a connection] ** pgsql(pgsql)://username:xxx@server.org/database }}}
 
