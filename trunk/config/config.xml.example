@@ -19,7 +19,7 @@
 	  'person' AS type,
 	  person_first||' '||person_last AS display_name,
 	  'id=$1&amp;type=person' AS callback_url,
-	  'shape=doublecircle, color=red' AS display_options
+	  'shape=doublecircle, color=red, pos="0,0"' AS display_options
 	  FROM person
 	  WHERE person_id = '$1'
 	</query_base>
@@ -86,9 +86,12 @@
       specified. Be sure that this directory is writeable by the
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
-      <!-- seconds till "simple" considers the graph too old -->
+      <!-- seconds till "simple" considers the graph too old.
+	use -1 and simple cache behavior to never generate new graphs-->
       <age_limit>15</age_limit>
-      <behavior>none</behavior> <!--none, simple, or complex (not yet) -->
+      <behavior>simple</behavior> <!--none, simple, or complex -->
+      <!-- required for complex caching. Diff command. Recommend -q option -->
+      <diff>diff -q</diff> 
       <limit_size></limit_size>
     </caching>
     <limiting>
