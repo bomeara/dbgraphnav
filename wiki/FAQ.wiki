@@ -8,6 +8,6 @@ Q: My server gives me this error:
 
 A: You aren't running Image_Graphviz 1.3RC3 or higher. You probably installed the release rather than beta package using pear. The RC package is, in fact, very stable, and includes numerous features this program takes advantage of. Consult the Installation instructions for more details. 
 
-{{{MDB2 Error: connect failed, _doConnect: [Error message: unable to establish a connection] ** pgsql(pgsql)://username:xxx@server.org/database ]]]
+{{{MDB2 Error: connect failed, _doConnect: [Error message: unable to establish a connection] ** pgsql(pgsql)://username:xxx@server.org/database }}}
 
 A: MDB2 can't connect. Check your username and password (make sure there are no extra spaces), and the other connection information in config.xml.
