@@ -15,19 +15,40 @@ class DBGraphNav_Cache {
     $out = $gcfg['caching']['path_to_cache'] . $this->queryhash;
     $img = $gcfg['graphviz']['outputImageFormat'];
 
-    switch (trim($this->cfg->graphing['caching']['behavior'])) {
+    $switch = trim($this->cfg->graphing['caching']['behavior']);
+    switch ($switch) {
+    case 'complex': //I know, I know...
     case 'simple':
       //we supress errors because the file may not exist, which is fine
       $age= (time()-@filemtime("$out.dot"));
-      if ($age < $gcfg["caching"]["age_limit"]) {
+      if (($age < $gcfg["caching"]["age_limit"]) || 
+	  ($gcfg["caching"]["age_limit"] < 0)) {
 	return Array("$out.$img","$out.map", $age);
 	break;
       }
 
-    case 'complex':
-
+      //this is a horrible abuse of the switch structure, but it works.
+      if (file_exists("$out.dot") && $switch="complex"){
+	/*Yes, this is slightly inefficient. However, it seems better
+	  than most of the alternatives, and the efficiency loss of
+	  piping a whole dot file through php and back out to the file
+	  system may be even worse, when everything is
+	  considered. Besides, I didn't want to require yet ANOTHER
+	  pear module.
+	 */
+	rename("$out.dot", "$out.dot.old");
+	$complex_saved = $this->graph->save_dot("$out.dot");
+	if (!exec("diff -q $out.dot $out.dot.old")){
+	  unlink("$out.dot.old");
+	  return Array("$out.$img","$out.map", -1);
+	  break;
+	}
+	unlink("$out.dot.old");
+      }
     case 'none':
-      $this->graph->save_dot("$out.dot");
+      if (!$complex_saved) {
+	$this->graph->save_dot("$out.dot");
+      }
       /* Image_Graphviz does not meet our needs for this, so we do it
 	 manually */
       /* This is safe without any escaping because it consists of
