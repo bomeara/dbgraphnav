@@ -3,8 +3,8 @@ session_start();
 require_once 'cache.php';
 
 $graph = new DBGraphNav_Cache;
-if (isset($_REQUEST["DBGN_depth"])) {
-  $depth = (int)$_REQUEST["DBGN_depth"];
+if (isset($_REQUEST["depth"])) {
+  $depth = (int)$_REQUEST["depth"];
   $_SESSION["DBGN_depth"] = $depth;
 } elseif (isset($_SESSION["DBGN_depth"])) {
   $depth = (int)$_SESSION["DBGN_depth"];
@@ -17,7 +17,7 @@ $graph->graph->build_network($_REQUEST["id"], $_REQUEST["type"], $depth);
 $result = $graph->fetch();
 
 echo "Cache Age: " . $result['age'] . "<br>";
-echo '<object type="image/svg+xml" data="';
+echo '<img src="';
 echo $result['img'] . '" usemap = "#G" border="0" />';
 //echo image map
 readfile($result['map']);
