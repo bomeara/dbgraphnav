@@ -170,15 +170,18 @@ class DBGraphNav_Network {
     return $friends;
   }
 
-  private function limit_network() {
+  function limit_network() {
     if ($this->network_node_count < 5) {
       echo "below limit. Not limiting";
     } else {
       foreach ($this->network as $type=>$value) {
 	foreach ($value as $node) {
-	  if (count($node) > 5) {
-	    $node['neighbors'] = Array('trimmed'=>Array('trimmed item'=>
-							'trimmed val'));
+	  foreach ($node['neighbors'] as $n_type) {
+	    //	    echo "node!:" . print_r($node);
+	    if (count($n_type) > 5) {
+	      $node['neighbors'] = Array('trimmed'=>Array('trimmed item'=>
+							  'trimmed val'));
+	    }
 	  }
 	}
       }
