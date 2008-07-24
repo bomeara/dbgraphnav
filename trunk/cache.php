@@ -17,13 +17,13 @@ class DBGraphNav_Cache {
 
     $switch = trim($this->cfg->graphing['caching']['behavior']);
     switch ($switch) {
-    case 'complex': //I know, I know...
+    case 'complex': //I know, I know... It looks odd, but it works.
     case 'simple':
       //we supress errors because the file may not exist, which is fine
       $age= (time()-@filemtime("$out.dot"));
       if (($age < $gcfg["caching"]["age_limit"]) || 
 	  ($gcfg["caching"]["age_limit"] < 0)) {
-	return Array("$out.$img","$out.map", $age);
+	return Array('img'=>"$out.$img",'map'=>"$out.map", 'age'=>$age);
 	break;
       }
 
@@ -34,13 +34,13 @@ class DBGraphNav_Cache {
 	  piping a whole dot file through php and back out to the file
 	  system may be even worse, when everything is
 	  considered. Besides, I didn't want to require yet ANOTHER
-	  pear module.
+	  pear module for comparing file contents.
 	 */
 	rename("$out.dot", "$out.dot.old");
 	$complex_saved = $this->graph->save_dot("$out.dot");
-	if (!exec("diff -q $out.dot $out.dot.old")){
-	  unlink("$out.dot.old");
-	  return Array("$out.$img","$out.map", -1);
+	if (!exec((string)$this->cfg->graphing['caching']['diff'] . " $out.dot $out.dot.old")){
+	  unlink("$out.dot.old"); //deletes the old file
+	  return Array('img'=>"$out.$img",'map'=>"$out.map", 'age'=>-1);
 	  break;
 	}
 	unlink("$out.dot.old");
@@ -58,7 +58,7 @@ class DBGraphNav_Cache {
       $binpath =$gcfg['graphviz']['binPath']; 
       $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.dot";
       $result = exec($exec);
-      return Array("$out.$img", "$out.map", 0);
+      return Array('img'=>"$out.$img", 'map'=>"$out.map", 'age'=>0);
     }
     
   }

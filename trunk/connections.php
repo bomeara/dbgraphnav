@@ -20,7 +20,7 @@ class DBGraphNav_DBCon{
 
       $result =& $db->query($qry["query_string"]);
       if (PEAR::isError($result)) {
-	die($result->getMessage());
+	die($db->getMessage().", \n".$db->getDebugInfo());
       }
       while ($row = $result->fetchRow()) {
 	$row["xml_config_vals"]["callback_url"]=$qry['callback_url'];
@@ -88,7 +88,7 @@ class DBGraphNav_Network {
     return $graph->saveParsedGraph($output_filename);
     }
   
-  //simplistic, and a possible point for bugs later.
+  //no longer simplistic, but still a possible point for bugs later on.
   function attrib_string2array($instr) {
     preg_match_all('/[^,"]*"[^"]*"|[^,]+/', $instr, $ary);
     foreach ($ary[0] as $b) {
@@ -117,6 +117,7 @@ class DBGraphNav_Network {
     $a['display_options']= $node['display_options'];
     $a['xml_display_options']=$node['xml_config_vals']['display_options'];
     $a['xml_callback_url']=$node['xml_config_vals']['callback_url'];
+    $this->network_node_count = 1;
     $a['neighbors'] =
       $this->build_network_helper($basenode, $type, $maxdepth, 1);
   }
@@ -165,6 +166,25 @@ class DBGraphNav_Network {
 	  $friends[$node['type']][$node['value']] = $node['display_name'];
 	}
     }
+    $this->network_node_count += 1;
     return $friends;
-  }}
+  }
+
+  private function limit_network() {
+    if ($this->network_node_count < 5) {
+      echo "below limit. Not limiting";
+    } else {
+      foreach ($this->network as $type=>$value) {
+	foreach ($value as $node) {
+	  if (count($node) > 5) {
+	    $node['neighbors'] = Array('trimmed'=>Array('trimmed item'=>
+							'trimmed val'));
+	  }
+	}
+      }
+    }
+  }
+}
+
+
 ?>
