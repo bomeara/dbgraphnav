@@ -107,9 +107,6 @@ July 6-12
   * clickable image maps
   * callback urls in code and config file
 
-----
-(The future is below this line)
-
 July 13-19
 
   * Fix Base Node problem
@@ -128,15 +125,22 @@ July 20-26
   * Code cleanup
   * Filling in the cracks, taking stuff from the "cobbled together with ductape" stage to "cleanly functional"
 
+----
+(The future is below this line)
 
 July 27-August 2
-  * Implement "next features"
+  * Work on limiting algorithm
+  * Work on setup script
+  * Bugfixes
+  * code cleanup
+  * Documentation
   * Work with implementors to get it functional
 
 August 2-9
   * Code cleanup
+  * Bugfixes
   * Further features
-  * Clean up documentation
+  * Documentation
 
 August 9+
   * Continue bug fixes

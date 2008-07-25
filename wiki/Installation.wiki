@@ -51,4 +51,12 @@ Rename config.xml.example to config.xml and modify it according to the Configura
 
 = Installation =
 
-Move all the package files into a single directory, and include blah.php in your project.
+Move all the package files into a single directory. Make sure the
+cache directory indicated in the configuration file exists and is
+writeable by the user account that php runs under (usually the same as
+the webserver account).
+
+Include main.php in your project as an iframe or directly in-line with
+the rest of the page. It is only intended as an example (although it
+should work fine in a production environment), so please do customize
+it.
