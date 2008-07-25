@@ -2,7 +2,7 @@
 session_start();
 require_once 'cache.php';
 
-$graph = new DBGraphNav_Cache;
+$cache = new DBGraphNav_Cache;
 if (isset($_REQUEST["depth"])) {
   $depth = (int)$_REQUEST["depth"];
   $_SESSION["DBGN_depth"] = $depth;
@@ -13,8 +13,8 @@ if (isset($_REQUEST["depth"])) {
 }
 
 //ID NEEDS TO BE ESCAPED! FIX ME SOON. (type does not need escaping)
-$graph->graph->build_network($_REQUEST["id"], $_REQUEST["type"], $depth);
-$result = $graph->fetch();
+$cache->graph->build_network($_REQUEST["id"], $_REQUEST["type"], $depth);
+$result = $cache->fetch();
 
 echo "Cache Age: " . $result['age'] . "<br>";
 echo '<img src="';

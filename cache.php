@@ -8,6 +8,30 @@ class DBGraphNav_Cache {
     //    $this->graph->build_network(1, 'person');
   }
 
+  function clear() {
+    $cache_path=$this->cfg->graphing['caching']['path_to_cache'];
+    $handler = opendir($cache_path);
+    $cwd = getcwd();
+    chdir($cache_path);
+
+    $count = 0;
+    while ($file = readdir($handler)) {
+      if (($file != '.') && ($file != '..')){
+	switch (substr($file, -4)) {
+	case ".dot":
+	case ".map":
+	case "." . $this->cfg->graphing['graphviz']['outputImageFormat']:
+	  unlink($file);
+	  $count +=1;
+	    
+	}
+      }
+    }
+    closedir($handler);
+    chdir($cwd);
+    return $count;
+  }
+  
   function fetch() {
     $this->queryhash = sha1($_SERVER['QUERY_STRING']);
     //output path to cached file without extension.
