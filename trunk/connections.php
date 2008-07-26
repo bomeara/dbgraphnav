@@ -88,7 +88,8 @@ class DBGraphNav_Network {
     return $graph->saveParsedGraph($output_filename);
     }
   
-  //no longer simplistic, but still a possible point for bugs later on.
+  //no longer simplistic, but still a possible point for bugs later
+  //on. Does not properly handle escaped doublequotes.
   function attrib_string2array($instr) {
     preg_match_all('/[^,"]*"[^"]*"|[^,]+/', $instr, $ary);
     foreach ($ary[0] as $b) {
@@ -113,6 +114,7 @@ class DBGraphNav_Network {
     $a =& $this->network[$type][$basenode];
     $a['display_name']= $node['display_name'];
     $a['depth']=0;
+    $a['ref_count']=1;
     $a['callback_url'] = $node['callback_url'];
     $a['display_options']= $node['display_options'];
     $a['xml_display_options']=$node['xml_config_vals']['display_options'];
@@ -179,15 +181,49 @@ class DBGraphNav_Network {
   /* Takes an item (i.e. $this->network['type']['item']) and counts
      the neighbors it is connected to. */
   function count_neighbors($innode) {
+    $count = 0;
     foreach ($innode['neighbors'] as $n_type) {
       $count += count($n_type);
     }
+    //    echo $innode['display_name'].$count." neighbors <br>\n";
     return $count;
   }
 
+  function limit_node(&$node) {
+    foreach ($node['neighbors'] as $type=>$value) {
+      foreach ($value as $id=>$display_value) {
+	$cur_friend = &$this->network[$type][$id];
+	//lower ref_count of linked friends
+	if ($cur_friend['ref_count']+$this->count_neighbors($cur_friend)<=1) {
+	  $cur_friend['ref_count'] -= 1;
+	  unset($node['neighbors'][$type][$id]);
+	}
+      }
+    }
+  }
+    
+
   function limit_network() {
+    foreach ($this->network as &$type) {
+      foreach ($type as &$node) {//for each high level node
+	if ($this->count_neighbors($node) > 3) {
+	  $this->limit_node($node);
+	}
+      }
+    }
+    foreach ($this->network as $n_type=>$n_value) {
+      foreach ($n_value as $n_id=>$node2){
+	if ($node2['ref_count'] < 1) {
+	  //altogether remove items with ref_count < 1
+	  unset($this->network[$n_type][$n_id]);
+	}
+      }
+    }
+  }
+
+  function limit_network_old() {
     if ($this->network_node_count < 5) {
-      echo "below limit. Not limiting";
+      echo "below total limit. Not limiting";
     } else {
       foreach ($this->network as &$type) {
 	foreach ($type as &$node) { //for each high-level node
@@ -197,8 +233,9 @@ class DBGraphNav_Network {
 	      foreach ($n_neighbors as $id=>$dispval){
 		//get the high level copy of that neighbor's node
 		//if it is referenced 1 or 0 times
-		if ($this->network[$n_type][$id]['ref_count'] <= 1){
-		  echo "removing $n_type|$id\n";
+		if ($this->network[$n_type][$id]['ref_count'] <= 1 && 
+		    $this->count_neighbors($this->network[$n_type][$id]) < 1){
+		  echo "removing $n_type|$id<br>\n";
 		  //remove it
 		  unset($this->network[$n_type][$id]);
 		  //and unset the reference to that node
