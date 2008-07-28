@@ -1,13 +1,18 @@
 <dbgraphnav>
   <database>
     <DSN>
-      <phptype>pgsql</phptype>
+      <!-- These fields are not trimmed on input, so don't leave extra
+	   spaces or newlines inside the tags. More specific info on
+	   these values here:
+	   http://pear.php.net/manual/en/package.database.mdb2.intro-dsn.php
+	-->
+      <phptype>pgsql</phptype> <!-- usually mysql or pgsql -->
       <dbsyntax></dbsyntax>
       <protocol></protocol>
-      <hostspec>darwin.nescent.org</hostspec>
-      <database>treetapper</database>
-      <username>treetapper_select</username>
-      <password></password>
+      <hostspec>darwin.nescent.org</hostspec> <!-- format: host.com:port -->
+      <database>treetapper</database> <!-- database name -->
+      <username>treetapper_select</username> <!-- database username -->
+      <password></password> <!-- database password -->
       <proto_opts></proto_opts>
       <option></option>
     </DSN>
@@ -73,12 +78,17 @@
       <!-- System path to graphviz dot or neato binary. Absolute path
       unless Graphviz is in the $PATH variable -->
       <binPath>/usr/local/bin/neato</binPath>
+      <!-- Image format as accepted by graphviz. See the docs for more info. -->
       <outputImageFormat>png</outputImageFormat>
-      <!-- further extra command line arguments to graphviz -->
+      <!-- extra command line arguments to graphviz -->
       <commandLineArgs>-x</commandLineArgs>
       <!-- Use 1 or 0 for these next two values. -->
       <directed>0</directed>
       <strict>1</strict>
+      <!-- name of the graph. Should be different if you're using
+	   multiple generated image maps on the same page. This
+	   functionality isn't deeply tested, but do report
+	   problems. -->
       <name>G</name>
     </graphviz>
     <caching>
@@ -87,20 +97,21 @@
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
       <!-- seconds till "simple" considers the graph too old.
-	use -1 and simple cache behavior to never generate new graphs-->
+	use -1 and "simple" cache behavior to never generate new graphs-->
       <age_limit>15</age_limit>
       <behavior>simple</behavior> <!--none, simple, or complex -->
-      <!-- required for complex caching. Diff command. Recommend -q option -->
-      <diff>diff -q</diff> 
-      <limit_size></limit_size>
+      <!-- Diff command. Recommend -q option. required for complex caching. -->
+      <diff>diff -q</diff>
+      <limit_size></limit_size> <!-- not currently implemented -->
     </caching>
     <limiting>
       <max_tree_depth></max_tree_depth>
       <max_nodes></max_nodes>
     </limiting>
 
-    <!-- Graphviz display options. See:
-	 http://www.graphviz.org/doc/info/attrs.html
+    <!-- Global graphviz display options. These are overwritten by
+	 options returned in a query. See:
+	 http://www.graphviz.org/doc/info/attrs.html 
 	 for more info. -->
     <display_options>
 	<overlap>false</overlap>
@@ -110,6 +121,7 @@
     </display_options>
 
     <misc>
+    <!-- Provides a wordwrap setting for wrapping overly long display labels-->
       <wordwrap>20</wordwrap>
     </misc>
 

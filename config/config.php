@@ -1,10 +1,18 @@
 <?php
 
-  //Now a singleton configuration object. Each instantion should return
-  //the same copy.
+  /* The main configuration class. Implemented as a singleton object
+     so that we don't have to reload the configuration XML file
+     repeatedly as we move through the program. To get a new instance,
+     use DBGraphNav_Config::getInstance().
+
+     Provides a customized interface to config.xml that provides the
+     necessary pieces of information in a format more convenient for
+     php to handle.
+   */
 class DBGraphNav_Config {
   static private $instance;
   
+  //singleton creation object
   public function getInstance() {
     if (!isset(self::$instance)){
       self::$instance = new DBGraphNav_Config();
@@ -21,6 +29,10 @@ class DBGraphNav_Config {
     $this->graphing = $this->xml2array($this->cfg->graphing->children());
   }
 
+  /* Simple and (somewhat) dirty function for converting XML into an
+     array. Only used on sections which are certain not to have
+     repeated elements. If it is used on a section with repeated
+     elements, the last item will override any previous data. */
   function xml2array($xml) {
     foreach ($xml as $name=>$value) {
       $children = $value->children();
@@ -96,7 +108,8 @@ class DBGraphNav_Config {
     The only time we ever actually need a database connection is when we're
     doing the queries. Since those can each override the default DSN, there's
     no reason to make the default values public.
-    returns a php form DSN
+
+    Returns a php form DSN
   */
   private function get_default_DSN() {
     return $this->DSN2php($this->cfg->database->DSN);
