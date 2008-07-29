@@ -7,7 +7,7 @@
   * Server fast enough to run graphviz with acceptible load times
 
 === Supported Databases ===
-DBGraphNav supports the same databases as the DBM2 package. See the [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html MDB2 Documentation] for the most up-to-date list.
+DBGraphNav supports the same databases as the MDB2 package. See the [http://pear.php.net/manual/en/html/package.database.mdb2.intro.html MDB2 Documentation] for the most up-to-date list.
 
   * MySQL
   * MySQLi (PHP5 only)
