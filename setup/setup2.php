@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php 
+if (!isset($_SESSION["authenticated"]))
+  die("Please start setup with the first file, <a href='index.php'>index.php</a>.");
+if (trim($_REQUEST["password"]) != trim(file_get_contents("PASSWORD.TXT"))){
+  die("Your password does not match. Please go back and try again.");
+}
+session_start(); ?>
 <htm>
 <head>
 <title>Setting up DBGraphNav Step 2</title>
