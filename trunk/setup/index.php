@@ -1,3 +1,9 @@
+<?php 
+if(trim(file_get_contents("PASSWORD.TXT")) == "changeme")
+  die("Please open the file PASSWORD.TXT in this directory and change the password to begin setup. Please note that this password is not very secure, and is only in effect for the duration of this setup process.");
+session_start();
+//$_SESSION["authenticated"] = True;
+?>
 <html>
 <head>
 <title>Setting up DBGraphNav</title>
@@ -39,7 +45,9 @@ if($error) {
 
 ?>
 Congratulations, you have most of the pre-requisites installed!<br>
-<form action="setup2.php" method="get">
+<form action="setup2.php" method="post">
+  Password: (you entered this into password.txt)<br>
+  <input type="password" name="password"><br>
   Please select your database type:<br>
 <select name="database_type">
 <option value="mysql">MySQL</option>
@@ -55,7 +63,7 @@ Congratulations, you have most of the pre-requisites installed!<br>
 <br>
   Please <a href="http://www.graphviz.org/Download..php">Install Graphviz</a> before continuing.<br>
   Input the path to your graphviz binary (for example "/usr/local/bin/neato"):<br>
-<input type="text" name="gv_path" value="<?php echo `which neato` ?>"/>
+<input type="text" name="gv_path" value="<?php echo @`which neato` ?>"/>
 <br>
   <input type="submit" value="Continue...">
 </form>
