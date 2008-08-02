@@ -1,11 +1,17 @@
 <?php 
-if (!isset($_SESSION["authenticated"]))
-  die("Please start setup with the first file, <a href='index.php'>index.php</a>.");
-if (trim($_REQUEST["password"]) != trim(file_get_contents("PASSWORD.TXT"))){
+if (trim($_REQUEST["password"]) != trim(file_get_contents("setup/PASSWORD.TXT"))){
   die("Your password does not match. Please go back and try again.");
+} else { 
+  $_SESSION["authenticated"] = 1;
 }
-session_start(); ?>
-<htm>
+
+$cfg = simplexml_load_file("config/config.template.xml");
+$cfg->database->DSN->phptype = $_REQUEST["database_type"];
+$cfg->graphing->graphviz->binPath = $_REQUEST['gv_path'];
+
+$_SESSION["config"] = (string)$cfg;
+?>
+<html>
 <head>
 <title>Setting up DBGraphNav Step 2</title>
 </head>
@@ -24,7 +30,7 @@ $opts = Array(
     );
 $pear_dependency->callCheckMethod($error, $opts);
 if($error) {
-  die( $error . "<br>\n Make sure you installed the correct database driver for MDB2. <br>\n");
+  die( $error . "<br>\n Error! Database driver not found. Make sure you installed the correct database driver for MDB2. <br>\n");
 }
 
 /*We want to read from the standard error here since graphviz prints
@@ -56,9 +62,26 @@ if (is_resource($process)){
   echo "Strange error with proc_open(). This code should never execute. Manually check your graphviz path.";
 }
 
-
-
 ?>
 
+<p>Congratulations, you have Graphviz and your database software working properly. Now lets start configuring DBGraphNav.</p>
+
+<p>The first thing we need to set up is the database connection information. Please enter it below:</p>
+  Database Type: <?php echo $_REQUEST["database_type"] ?><br>
+  Hostname: <input type="text" name="hostspec"> (this is often "localhost". use "hostname:port" if you are on a nonstandard port)<br>
+  Database Name: <input type="text" name="database"><br>
+  Username: <input type="text" name="username"><br>
+  Password: <input type="text" name="dbpass"><br>
+  
+<p>Next we will configure Graphviz.</p>
+  Graphviz Binary path: <?php echo $_REQUEST["gv_path"] ?> <br>
+  Output Image Format: <input type="text" size="5" value="png"> (See the <a href="http://www.graphviz.org/doc/info/output.html">graphviz documentation</a> for more options)<br>
+
+<p>Now we need to set up the image cache.</p>
+  Cache directory: <input type="text" name="cachepath" value="cache/"> (this is relative to the base DBGraphNav directory. Include the trailing slash.)<br>
+<b>You MUST make this directory writeable by the php user.</b><br>
+
+<p>The next value specifies the length of time during which we return a cached image instead of checking to see if it should be updated. This value should be relatively high (hours or days or longer) for datasets that don't change much, and relatively low for testing purposes and databases that change rapidly.</p>
+Cache Image Age Limit: <input type="text" size="5" value="3600"> (in seconds)<br>
 
 </html>

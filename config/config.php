@@ -1,4 +1,12 @@
 <?php
+class DBGraphNav_Config {
+  /* If you moved config.xml, please modify the following string to
+     match your new path. You may need to use a relative path
+     including "../" in order to reach a directory which is above this
+     one. This path should be relative to the main DBGraphNav
+     directory. The important thing is that the configuration file is
+     not publicly accessible from the web. */
+  public $CONFIG_FILE_PATH = "config/config.xml";
 
   /* The main configuration class. Implemented as a singleton object
      so that we don't have to reload the configuration XML file
@@ -9,7 +17,6 @@
      necessary pieces of information in a format more convenient for
      php to handle.
    */
-class DBGraphNav_Config {
   static private $instance;
   
   //singleton creation object
@@ -23,7 +30,7 @@ class DBGraphNav_Config {
   //don't call this directly with the new keyword, instead use:
   //DBGraphNav_Config::getInstance();
   private function __construct() {
-    if (!$this->cfg = simplexml_load_file('config/config.xml')) {
+    if (!$this->cfg = simplexml_load_file($this->CONFIG_FILE_PATH)) {
       die( "Error loading config file!\n");
     }
     $this->graphing = $this->xml2array($this->cfg->graphing->children());
