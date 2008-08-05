@@ -63,12 +63,12 @@ if (is_resource($process)){
 }
 
 ?>
-
+<form action="setup.php?setup_stage=2" method="post">
 <p>Congratulations, you have Graphviz and your database software working properly. Now lets start configuring DBGraphNav.</p>
 
 <p>The first thing we need to set up is the database connection information. Please enter it below:</p>
   Database Type: <?php echo $_REQUEST["database_type"] ?><br>
-  Hostname: <input type="text" name="hostspec"> (this is often "localhost". use "hostname:port" if you are on a nonstandard port)<br>
+  Hostname: <input type="text" name="hostspec"> (this is often localhost. Use "hostname:port" if you are on a nonstandard port)<br>
   Database Name: <input type="text" name="database"><br>
   Username: <input type="text" name="username"><br>
   Password: <input type="text" name="dbpass"><br>
@@ -79,9 +79,22 @@ if (is_resource($process)){
 
 <p>Now we need to set up the image cache.</p>
   Cache directory: <input type="text" name="cachepath" value="cache/"> (this is relative to the base DBGraphNav directory. Include the trailing slash.)<br>
-<b>You MUST make this directory writeable by the php user.</b><br>
+<b>You MUST make this directory writeable by the php user.</b><br>b
 
 <p>The next value specifies the length of time during which we return a cached image instead of checking to see if it should be updated. This value should be relatively high (hours or days or longer) for datasets that don't change much, and relatively low for testing purposes and databases that change rapidly.</p>
 Cache Image Age Limit: <input type="text" size="5" value="3600"> (in seconds)<br>
+<p>This value specifies the path to the diff command. This command is included in most unix systems (you may need to install it on windows systems), and is required for complex caching mode. The -f option is recommended.<br>
+<input type="text" name="diffcmd" value="<?php echo @`which diff`; ?> -f"></p>
 
+<p>Which caching mode do you want to use? (Note that complex requires the diff command to be correct). None implements no caching, Simple caches images for a specified time period, and Complex caches images for the time period, and then compares the graph results before asking graphviz to redraw the graph.<br>
+<select name="cachemode">
+<option value="complex">Complex</option>
+<option value="simple">Simple</option>
+<option value="none">None</option>
+</select>
+<br>
+  <input type="submit" value="Continue...">
+
+</form>
+</body>
 </html>

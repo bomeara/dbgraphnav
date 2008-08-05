@@ -82,6 +82,7 @@ class DBGraphNav_Network {
   private function build_network_helper($basenode, $type, $maxdepth, $depth) {
     $friends = array();
     if ($depth <= $maxdepth) {
+      //      print_r( $this->db->get_data($basenode, $type, "query_string"));
       foreach ($this->db->get_data($basenode, $type, "query_string") as $node) {
 	  $a =& $this->network[$node['type']][$node['value']];
 	  if (isset($a) ){
