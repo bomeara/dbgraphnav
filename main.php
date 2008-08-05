@@ -17,9 +17,6 @@ if (isset($_REQUEST["depth"])) {
   $depth = 1; //a safe, but uninteresting default
 }
 //give the user some indication that the page is working and not stuck
-echo "<div id='loadingmsg'>Loading...</div>";
-flush();
-
 //this is the only DBGraphNav file needed since it includes the others
 require_once 'cache.php'; 
 $cache = new DBGraphNav_Cache;
@@ -43,5 +40,5 @@ echo "Cache Age: " . $result['age'] . "<br>";
 echo '<img src="';
 echo $result['img'] . '" usemap = "#G" border="0" />';
 readfile($result['map']);//print the image map into the HTML source
-echo " <script type='text/javascript'>document.getElementById('loadingmsg').style.visibility='hidden'; </script> ";
+
 ?>
