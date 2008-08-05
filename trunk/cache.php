@@ -27,7 +27,7 @@ class DBGraphNav_Cache {
 	   graphviz created. This provides a bit of a safety measure,
 	   and allows the use of (for example) .htaccess files. */
 	switch (substr($file, -4)) {
-	case ".dot":
+	case ".gv":
 	case ".map":
 	case "." . $this->cfg->graphing['graphviz']['outputImageFormat']:
 	  unlink($file); //delete the file
@@ -61,14 +61,14 @@ class DBGraphNav_Cache {
     case 'complex': //This switch case is odd but produces the correct results
     case 'simple':
       //we supress errors because the file may not exist, which is fine
-      $age= (time()-@filemtime("$out.dot"));
+      $age= (time()-@filemtime("$out.gv"));
       if (($age < $gcfg["caching"]["age_limit"]) || 
 	  ($gcfg["caching"]["age_limit"] < 0)) {
 	return Array('img'=>"$out.$img",'map'=>"$out.map", 'age'=>$age);
 	break;
       }
 
-      if (file_exists("$out.dot") && $switch="complex"){
+      if (file_exists("$out.gv") && $switch="complex"){
 	/*Yes, this is slightly inefficient. However, it seems better
 	  than most of the alternatives, and the efficiency loss of
 	  piping a whole dot file through php and back out to the file
@@ -76,19 +76,19 @@ class DBGraphNav_Cache {
 	  considered. Besides, I didn't want to require yet ANOTHER
 	  pear module for comparing file contents.
 	 */
-	rename("$out.dot", "$out.dot.old");
-	$complex_saved = $this->graph->save_dot("$out.dot");
+	rename("$out.gv", "$out.gv.old");
+	$complex_saved = $this->graph->save_dot("$out.gv");
 	//run a diff on the old dot file and the new one
-	if (!exec((string)$this->cfg->graphing['caching']['diff'] . " $out.dot $out.dot.old")){
-	  unlink("$out.dot.old"); //deletes the old file
+	if (!exec((string)$this->cfg->graphing['caching']['diff'] . " $out.gv $out.gv.old")){
+	  unlink("$out.gv.old"); //deletes the old file
 	  return Array('img'=>"$out.$img",'map'=>"$out.map", 'age'=>-1);
 	  break;
 	}
-	unlink("$out.dot.old");
+	unlink("$out.gv.old");
       }
     case 'none':
       if (!$complex_saved) {
-	$this->graph->save_dot("$out.dot");
+	$this->graph->save_dot("$out.gv");
       }
       $binpath =$gcfg['graphviz']['binPath']; 
       /* Image_Graphviz does not meet our needs for this, so we do it
@@ -100,7 +100,7 @@ class DBGraphNav_Cache {
 	 configuration values and hashed user inputs, but no user
 	 input is directly used in this string.
        */
-      $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.dot";
+      $exec = "$binpath -Tcmapx -o$out.map -T$img -o$out.$img $out.gv";
       $result = exec($exec);
       return Array('img'=>"$out.$img", 'map'=>"$out.map", 'age'=>0);
     }
