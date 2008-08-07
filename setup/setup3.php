@@ -1,11 +1,22 @@
+<html>
+<head>
+<title>Setting up DBGraphNav Step 3</title>
+</head>
+<body>
+<H1>Step 3</H1>
 <?php
+$rq = $_REQUEST;
+$cfg = $_SESSION["config"];
+$db = &$cfg->database->DSN;
+$db->hostspec = $rq["hostspec"];
+$db->database = $rq["database"];
+$db->username = $rq["username"];
+$db->password = $rq["dbpass"];
 
 
+?>
 
-
-
-
-
+<?php
 /* Checking to make sure the configuration file is not publicly visible */
 if (!ini_get("allow_url_fopen")){
   echo "<br>We can't automatically check to see if your config.xml is publicly visible. Please manually check to make <b>SURE</b> it is not accessible from the web. If it is, your SQL password will be made publicly visible!<br>\n";
@@ -30,3 +41,5 @@ If you do not take these precautions, you will be exposing your SQL password to 
   }
 }
 ?>
+</body>
+<html>
