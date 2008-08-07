@@ -1,5 +1,11 @@
 #summary Installation Instructions
 
+= Install Script = 
+You may install the program by accessing setup.php
+and following the instructions there. Each time it stops, you should
+fix the error, and then reload the page to continue on to the next
+step.
+
 = System Requirements =
   * PHP 5
   * Supported Database System
@@ -59,4 +65,5 @@ the webserver account).
 Include main.php in your project as an iframe or directly in-line with
 the rest of the page. It is only intended as an example (although it
 should work fine in a production environment), so please do customize
-it.
+it. You may also want to look at jsload.php as an example of how to
+use ajax to load the generated images.

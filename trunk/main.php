@@ -16,6 +16,7 @@ if (isset($_REQUEST["depth"])) {
 } else {
   $depth = 1; //a safe, but uninteresting default
 }
+
 //give the user some indication that the page is working and not stuck
 //this is the only DBGraphNav file needed since it includes the others
 require_once 'cache.php'; 

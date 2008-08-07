@@ -63,7 +63,7 @@ if (is_resource($process)){
 }
 
 ?>
-<form action="setup.php?setup_stage=2" method="post">
+<form action="setup.php?setup_stage=3" method="post">
 <p>Congratulations, you have Graphviz and your database software working properly. Now lets start configuring DBGraphNav.</p>
 
 <p>The first thing we need to set up is the database connection information. Please enter it below:</p>

@@ -125,9 +125,6 @@ July 20-26
   * Code cleanup
   * Filling in the cracks, taking stuff from the "cobbled together with ductape" stage to "cleanly functional"
 
-----
-(The future is below this line)
-
 July 27-August 2
   * Work on limiting algorithm
   * Work on setup script
@@ -136,10 +133,13 @@ July 27-August 2
   * Documentation
   * Work with implementors to get it functional
 
+----
+(The future is below this line)
+
 August 2-9
   * Code cleanup
   * Bugfixes
-  * Further features
+  * Setup script
   * Documentation
 
 August 9+
