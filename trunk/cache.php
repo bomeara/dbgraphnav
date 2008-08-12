@@ -1,7 +1,7 @@
 <?php
   /* This file contains the code which allows the program to utilize
      the previously calculated results. It is possible to use the
-     program without interface, but the caching system improves
+     program without this interface, but the caching system improves
      performance and lowers server load.
    */
 
@@ -44,7 +44,9 @@ class DBGraphNav_Cache {
   /* Core functionality.
 
      Call this to (depending on configuration) check the cache and
-     either return the cached images or re-draw new ones. */
+     either return the cached images or re-draw new ones. Note that we
+     use the newer .gv file extension instead of the older and
+     somewhat ambiguous .dot. The file format is exactly the same.*/
 
   function fetch() {
     /* Hash the query string. This is the way we determine unique

@@ -73,6 +73,7 @@ class DBGraphNav_Network {
     $this->network_node_count = 1;
     $a['neighbors'] =
       $this->build_network_helper($basenode, $type, $maxdepth, 1);
+    $this->soft_limited = $this->limit_network();
   }
 
   
@@ -82,8 +83,12 @@ class DBGraphNav_Network {
   private function build_network_helper($basenode, $type, $maxdepth, $depth) {
     $friends = array();
     if ($depth <= $maxdepth) {
-      //      print_r( $this->db->get_data($basenode, $type, "query_string"));
-      foreach ($this->db->get_data($basenode, $type, "query_string") as $node) {
+      $cur_node = $this->db->get_data($basenode, $type, "query_string");
+      $hard_limit = $this->cfg->graphing['limiting']['hard_limit'];
+      if (count($cur_node)<=$hard_limit
+	  or $hard_limit < 0 
+	  or $depth <= 1) {
+	foreach ($cur_node as $node) {
 	  $a =& $this->network[$node['type']][$node['value']];
 	  if (isset($a) ){
 	    if ($a['depth'] > $depth) {
@@ -119,6 +124,9 @@ class DBGraphNav_Network {
 	  //store friends
 	  $friends[$node['type']][$node['value']] = $node['display_name'];
 	}
+      } else {
+	$this->hard_limited[$type] = $cur_node;
+      }
     }
     //total number of nodes
     $this->network_node_count += 1;
@@ -200,9 +208,11 @@ class DBGraphNav_Network {
      themselves so that they may be displayed elsewhere.
   */
   function limit_network() {
-    foreach ($this->network as &$type) {
-      foreach ($type as &$node) {//for each high level node
-	if ($this->count_neighbors($node) > 3) {
+    foreach ($this->network as $type=>&$value) {
+      foreach ($value as $id=>&$node) {//for each high level node
+	$soft_limit = $this->cfg->graphing['limiting']['soft_limit'];
+	if ($this->count_neighbors($node) >= $soft_limit
+	    and $soft_limit >= 0) {
 	  $this->limit_node($node);
 	}
       }
@@ -227,7 +237,6 @@ class DBGraphNav_Network {
     foreach ($innode['neighbors'] as $n_type) {
       $count += count($n_type);
     }
-    //    echo $innode['display_name'].$count." neighbors <br>\n";
     return $count;
   }
 
@@ -243,7 +252,7 @@ class DBGraphNav_Network {
 	if ($cur_friend['ref_count']+$this->count_neighbors($cur_friend)<=1) {
 	  $cur_friend['ref_count'] -= 1;
 	  unset($node['neighbors'][$type][$id]);
-	}
+	}	  
       }
     }
   }

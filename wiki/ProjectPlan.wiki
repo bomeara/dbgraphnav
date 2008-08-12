@@ -133,16 +133,17 @@ July 27-August 2
   * Documentation
   * Work with implementors to get it functional
 
-----
-(The future is below this line)
-
 August 2-9
   * Code cleanup
   * Bugfixes
   * Setup script
   * Documentation
 
+----
+(The future is below this line)
+
 August 9+
+  * Finish setup script
   * Continue bug fixes
   * Code cleanup
   * Documentation

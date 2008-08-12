@@ -37,9 +37,34 @@ $id = $cache->graph->build_network(pg_escape_string($_REQUEST["id"]),
 $result = $cache->fetch();
 
 //you don't have to display this to users, but it's convenient for debugging
-echo "Cache Age: " . $result['age'] . "<br>"; 
 echo '<img src="';
 echo $result['img'] . '" usemap = "#G" border="0" />';
 readfile($result['map']);//print the image map into the HTML source
+echo "<br>Cache Age: " . $result['age'] . "<br>"; 
 
+echo "\n<br>Results removed by soft limit value:";
+echo <<<EOT
+<table border="1">
+<tr><th>Type<th>ID<th>Display Name
+EOT;
+//we cast to array to suppress foreach errors when the value is empty
+foreach ((array)$cache->graph->soft_limited as $type=>$item) {
+  foreach ((array)$item as $id => $value){
+    echo "<tr><td>$type<td>$id<td>$value[display_name]";
+  }
+}
+echo "</table>";
+
+echo "\n<br>Results removed by hard limit value:";
+echo <<<EOT
+<table border="1">
+<tr><th>Type<th>ID<th>Display Name
+EOT;
+//we cast to array to suppress foreach errors when the value is empty
+foreach ((array)$cache->graph->hard_limited as $type=>$item) {
+  foreach ((array)$item as $value){
+    echo "<tr><td>$type<td>$value[value]<td>$value[display_name]";
+  }
+}
+echo "</table>";
 ?>
