@@ -99,20 +99,44 @@
       <!-- seconds till "simple" considers the graph too old.
 	use -1 and "simple" cache behavior to never generate new graphs-->
       <age_limit>15</age_limit>
-      <behavior>simple</behavior> <!--none, simple, or complex -->
+      <behavior>complex</behavior> <!--none, simple, or complex -->
       <!-- Diff command. Recommend -q option. required for complex caching. -->
       <diff>diff -q</diff>
-      <limit_size></limit_size> <!-- not currently implemented -->
     </caching>
     <limiting>
-      <max_tree_depth></max_tree_depth>
-      <max_nodes></max_nodes>
-    </limiting>
+      <!-- These settings are provided to allow you to fine-tune your
+      graphing results to display images which provide a useful amount
+      of information. Often, collections will include some small
+      number of graphs which return far too many results to be
+      comprehensible. The limting settings help with this.
 
+      Each of the limiting modes saves the removed nodes for further
+      processing and display, if desired. The soft_limited and
+      hard_limited values of DBGraphNav_Network objects (accessible as
+      the graph subproperty of a DBGraphNav_Cache object [see the
+      example main.php]) are formatted differently, but may be
+      displayed in tabular format or processed further for other
+      display options. Hard limiting occurs before soft limiting.-->
+
+      <!-- nodes with more that this many friends do not have their
+      friends added to the network at all. -1 to disable. Not
+      applicable to base node. Eliminates ALL OUTGOING connections
+      from a node which means that some connections are not displayed
+      which would otherwise be drawn. This is more effective for
+      extremely overpopulated nodes than soft-limiting. -->
+      <hard_limit>15</hard_limit>
+      
+      <!-- Soft limiting mode removes nodes that are only referenced
+      by a single overconnected node. This setting determines how many
+      friends a node must have before it is judged overconnected. -1
+      to disable. Soft limiting IS applied to the base node.-->
+      <soft_limit>5</soft_limit>
+
+    </limiting>
     <!-- Global graphviz display options. These are overwritten by
 	 options returned in a query. See:
 	 http://www.graphviz.org/doc/info/attrs.html 
-	 for more info. -->
+	 for more info and options. -->
     <display_options>
 	<overlap>false</overlap>
 	<splines>true</splines>
