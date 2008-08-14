@@ -86,7 +86,8 @@ class DBGraphNav_Config {
       $outary[] = Array("DSN" => $this->merge_DSN($element->DSN),
 			"query_string" => $query_string,
 			"callback_url" => (string)$element->callback_url,
-			"display_options"=> (string)$element->display_options);
+			"display_options"=> (string)$element->display_options,
+			"display_options_limited"=> (string)$element->display_options_limited);
     }
     return $outary;
   }
