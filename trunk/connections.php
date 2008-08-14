@@ -36,6 +36,8 @@ class DBGraphNav_DBCon{
 	//directly into the returned results. This was the best place to do it.
 	$row["xml_config_vals"]["callback_url"]=$qry['callback_url'];
 	$row["xml_config_vals"]["display_options"]=$qry['display_options'];
+	$row["xml_config_vals"]["display_options_limited"]=
+	  $qry['display_options_limited'];
 	$return[] =$row;
       }
     }
@@ -94,7 +96,8 @@ class DBGraphNav_Network {
 	    if ($a['depth'] > $depth) {
 	      /* If we find a newer, shorter route to a max-depth
 		 node, we want to pull the network where previously it
-		 was not queried.
+		 was not querie	$cur_node
+d.
 	      */
 	      if ($a['depth'] >= $maxdepth) {
 		// find neighbors
@@ -115,6 +118,8 @@ class DBGraphNav_Network {
 	    $a['callback_url'] = $node['callback_url'];
 	    $a['xml_display_options']=$node['xml_config_vals']['display_options'];
 	    $a['xml_callback_url']=$node['xml_config_vals']['callback_url'];
+	    $a['xml_disp_opts_lim']=$node['xml_config_vals']['display_options_limited'];
+
 	    $a['neighbors'] =  
 	      $this->build_network_helper($node['value'],
 					  $node['type'],
@@ -162,7 +167,7 @@ class DBGraphNav_Network {
 	function provides a graphviz-compatible ID.
 	*/
 	$cur_node = $graph->_escape("$type||||$id");
-	/* These three different Display Options values are necessary
+	/* These three different Display Options values are necessarylimited
 	   in order to allow values to properly override each
 	   other. */
 	$dopts1 = array('URL' => 
@@ -173,7 +178,10 @@ class DBGraphNav_Network {
 				 $this->cfg->graphing['misc']['wordwrap']));
 	$dopts2 = $this->attrib_string2array($value['xml_display_options']);
 	$dopts3 = $this->attrib_string2array($value["display_options"]);
-	$dopts = array_merge($dopts1, (array)$dopts2, (array)$dopts3);
+	if ($value['limited'] == True) {
+	  $dopts4 = $this->attrib_string2array($value['xml_disp_opts_lim']);
+	}
+	$dopts = array_merge($dopts1, (array)$dopts2, (array)$dopts3, (array)$dopts4);
 	$graph->addNode($cur_node, $dopts);
 	//node neighbor type
 	foreach ($value["neighbors"] as $type2=>$value2) {
@@ -213,6 +221,7 @@ class DBGraphNav_Network {
 	$soft_limit = $this->cfg->graphing['limiting']['soft_limit'];
 	if ($this->count_neighbors($node) >= $soft_limit
 	    and $soft_limit >= 0) {
+	  $node['limited'] = True;
 	  $this->limit_node($node);
 	}
       }

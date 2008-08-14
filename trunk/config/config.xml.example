@@ -44,6 +44,9 @@
 	<display_options>
 	  color=blue
 	</display_options>
+	<display_options_limited>
+	  color=purple
+	</display_options_limited>
       </person>
 
       <reference>
@@ -68,6 +71,10 @@
 	  ON referencetoperson_person=person_id
 	  WHERE referencetoperson_reference = '$1'
 	</query_string>
+	<display_options_limited>
+	  color=green
+	</display_options_limited>
+
       </reference>
 
     </friend_finder>
@@ -130,7 +137,7 @@
       by a single overconnected node. This setting determines how many
       friends a node must have before it is judged overconnected. -1
       to disable. Soft limiting IS applied to the base node.-->
-      <soft_limit>5</soft_limit>
+      <soft_limit>50</soft_limit>
 
     </limiting>
     <!-- Global graphviz display options. These are overwritten by
