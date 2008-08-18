@@ -1,15 +1,5 @@
 <?php 
-if (trim($_REQUEST["password"]) != trim(file_get_contents("setup/PASSWORD.TXT"))){
-  die("Your password does not match. Please go back and try again.");
-} else { 
-  $_SESSION["authenticated"] = 1;
-}
 
-$cfg = simplexml_load_file("config/config.template.xml");
-$cfg->database->DSN->phptype = $_REQUEST["database_type"];
-$cfg->graphing->graphviz->binPath = $_REQUEST['gv_path'];
-
-$_SESSION["config"] = (string)$cfg;
 ?>
 <html>
 <head>
@@ -61,39 +51,41 @@ if (is_resource($process)){
 } else {
   echo "Strange error with proc_open(). This code should never execute. Manually check your graphviz path.";
 }
+if (!is_writable($_REQUEST['cachepath'])) {
+  die("Please make the cache path you specified ($_REQUEST[cachepath]) writeable. PHP (and Graphviz) must be able to write to this directory.");
+}
+
+/* Checking to make sure the configuration file is not publicly visible */
+if (!ini_get("allow_url_fopen")){
+  echo "<br>We can't automatically check to see if your config.xml is publicly visible. Please manually check to make <b>SURE</b> it is not accessible from the web. If it is, your SQL password will be made publicly visible!<br>\n";
+}else {
+  $config_check = substr("http://" . 
+			 $_SERVER['HTTP_HOST'] . 
+			 $_SERVER['SCRIPT_NAME'],
+			 0,
+			 -16);
+  require_once("config/config.php");
+  $config = DBGraphNav_Config::getInstance();
+  
+  //not using curl here because it causes all kinds of problems
+  if (strpos(@file_get_contents($config_check . $config->CONFIG_FILE_PATH),
+	     "<dbgraphnav>") !== FALSE){
+    die("<br><b>Error!</b> Config.xml is readable from the web!<br>\n
+<br>You <b>MUST</b> place the <b>config.xml</b> file in a directory which is not publicly accessible from the web. A .htaccess file is included which should do this on most Apache webservers, but for IIS and other webservers, you will have to manually configure this. One solution is to move the file above the webserver directory. Consult the documentation for your webserver on how to prevent a file from being served to the web.<br>\n
+<br>
+The file currently resides in config/config.xml. Move the file, not the directory. Once you have moved the file, you must change the string near the top of config.php to point to your new location. <br>\n
+<br>
+If you do not take these precautions, you will be exposing your SQL password to the public on the web!<br>\n");
+  }
+}
 
 ?>
 <form action="setup.php?setup_stage=3" method="post">
-<p>Congratulations, you have Graphviz and your database software working properly. Now lets start configuring DBGraphNav.</p>
+<p>Congratulations, you have Graphviz and all the pre-requisites necessary for running DBGraphNav installed.</p>
 
-<p>The first thing we need to set up is the database connection information. Please enter it below:</p>
-  Database Type: <?php echo $_REQUEST["database_type"] ?><br>
-  Hostname: <input type="text" name="hostspec"> (this is often localhost. Use "hostname:port" if you are on a nonstandard port)<br>
-  Database Name: <input type="text" name="database"><br>
-  Username: <input type="text" name="username"><br>
-  Password: <input type="text" name="dbpass"><br>
-  
-<p>Next we will configure Graphviz.</p>
-  Graphviz Binary path: <?php echo $_REQUEST["gv_path"] ?> <br>
-  Output Image Format: <input type="text" size="5" value="png"> (See the <a href="http://www.graphviz.org/doc/info/output.html">graphviz documentation</a> for more options)<br>
+  <p>Now you need to edit your config/config.xml file with the appropriate settings. Details on the various options are available from the <a href="http://code.google.com/p/dbgraphnav/wiki/ConfigurationOptions">ConfigurationOptions</a> section in the wiki, as well as comments within that file. Be sure to avoid adding extra spaces or newlines into fields like the username and password. </p>
 
-<p>Now we need to set up the image cache.</p>
-  Cache directory: <input type="text" name="cachepath" value="cache/"> (this is relative to the base DBGraphNav directory. Include the trailing slash.)<br>
-<b>You MUST make this directory writeable by the php user.</b><br>b
-
-<p>The next value specifies the length of time during which we return a cached image instead of checking to see if it should be updated. This value should be relatively high (hours or days or longer) for datasets that don't change much, and relatively low for testing purposes and databases that change rapidly.</p>
-Cache Image Age Limit: <input type="text" size="5" value="3600"> (in seconds)<br>
-<p>This value specifies the path to the diff command. This command is included in most unix systems (you may need to install it on windows systems), and is required for complex caching mode. The -f option is recommended.<br>
-<input type="text" name="diffcmd" value="<?php echo @`which diff`; ?> -f"></p>
-
-<p>Which caching mode do you want to use? (Note that complex requires the diff command to be correct). None implements no caching, Simple caches images for a specified time period, and Complex caches images for the time period, and then compares the graph results before asking graphviz to redraw the graph.<br>
-<select name="cachemode">
-<option value="complex">Complex</option>
-<option value="simple">Simple</option>
-<option value="none">None</option>
-</select>
 <br>
-  <input type="submit" value="Continue...">
 
 </form>
 </body>

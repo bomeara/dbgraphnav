@@ -12,7 +12,7 @@
       <hostspec>darwin.nescent.org</hostspec> <!-- format: host.com:port -->
       <database>treetapper</database> <!-- database name -->
       <username>treetapper_select</username> <!-- database username -->
-      <password></password> <!-- database password -->
+      <password>p8espe6e</password> <!-- database password -->
       <proto_opts></proto_opts>
       <option></option>
     </DSN>
@@ -137,7 +137,7 @@
       by a single overconnected node. This setting determines how many
       friends a node must have before it is judged overconnected. -1
       to disable. Soft limiting IS applied to the base node.-->
-      <soft_limit>5</soft_limit>
+      <soft_limit>50</soft_limit>
 
     </limiting>
     <!-- Global graphviz display options. These are overwritten by

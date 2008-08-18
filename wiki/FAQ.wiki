@@ -1,5 +1,7 @@
 #summary Frequently Asked Questions
 
+If your issue is not resolved here, please report it on the issue tracker. 
+
 = It's not working! (Installation help) =
 
 Q: My server gives me this error:

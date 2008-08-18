@@ -1,0 +1,8 @@
+#summary Instructions for configuring the connection component of config.xml
+
+The <friend_finder> section of the config file is the configuration for how DBGraphNav builds the graph network. It helps to consult the example file while reading this description.
+
+Each result from the database must have a type. Within this type, you can specify multiple queries which return information on that type:
+
+<query_base>
+This query is used when this type of node is the starting node for a graph. It returns the necessary information to display that node. This query should return (at minimum) a single result with the columns value, type, and display_name. Value is the unique (on a per-type basis) database entry ID.

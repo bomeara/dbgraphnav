@@ -1,3 +1,7 @@
+<?php
+THIS FILE NEEDS MORE WORK AND IS NOT CURRENTLY IN USE.
+
+?>
 <html>
 <head>
 <title>Setting up DBGraphNav Step 3</title>
@@ -12,7 +16,8 @@ $db->hostspec = $rq["hostspec"];
 $db->database = $rq["database"];
 $db->username = $rq["username"];
 $db->password = $rq["dbpass"];
-
+print_r($cfg);
+file_put_contents("cache/out.xml", $cfg);
 
 ?>
 
@@ -33,7 +38,7 @@ if (!ini_get("allow_url_fopen")){
   if (strpos(@file_get_contents($config_check . $config->CONFIG_FILE_PATH),
 	     "<dbgraphnav>") !== FALSE){
     die("<br><b>Error!</b> Config.xml is readable from the web!<br>\n
-<br>You <b>MUST</b> place the <b>config.xml</b> file in a directory which is not publicly accessible from the web. A .htaccess file is included which should do this on most Apache webservers, but for IIS and other webservers, you will have to manually configure this. One solution is to move the file above the webserver directory. Consult the documentation for your webserver on prevent a file from being served to the web.<br>\n
+<br>You <b>MUST</b> place the <b>config.xml</b> file in a directory which is not publicly accessible from the web. A .htaccess file is included which should do this on most Apache webservers, but for IIS and other webservers, you will have to manually configure this. One solution is to move the file above the webserver directory. Consult the documentation for your webserver on how to prevent a file from being served to the web.<br>\n
 <br>
 The file currently resides in config/config.xml. Move the file, not the directory. Once you have moved the file, you must change the string near the top of config.php to point to your new location. <br>\n
 <br>
