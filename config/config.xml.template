@@ -48,7 +48,7 @@
       <path_to_cache>cache/</path_to_cache> 
       <!-- seconds till "simple" considers the graph too old.
 	use -1 and "simple" cache behavior to never generate new graphs-->
-      <age_limit>15</age_limit>
+      <age_limit>1500</age_limit>
       <behavior>complex</behavior> <!--none, simple, or complex -->
       <!-- Diff command. Recommend -q option. required for complex caching. -->
       <diff>diff -q</diff>
