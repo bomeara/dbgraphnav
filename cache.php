@@ -26,7 +26,7 @@ class DBGraphNav_Cache {
 	/* This prevents us from deleting anything but the files
 	   graphviz created. This provides a bit of a safety measure,
 	   and allows the use of (for example) .htaccess files. */
-	switch (substr($file, -4)) {
+	switch (substr($file, strrpos($file, "."))) {
 	case ".gv":
 	case ".map":
 	case "." . $this->cfg->graphing['graphviz']['outputImageFormat']:
