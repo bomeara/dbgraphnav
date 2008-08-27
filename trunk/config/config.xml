@@ -46,9 +46,10 @@
       specified. Be sure that this directory is writeable by the
       webserver process. -->
       <path_to_cache>cache/</path_to_cache> 
-      <!-- seconds till "simple" considers the graph too old.
-	use -1 and "simple" cache behavior to never generate new graphs-->
-      <age_limit>1500</age_limit>
+      <!-- seconds till "simple" considers the graph too old.  use -1
+	and "simple" cache behavior to never generate new graphs. Use
+	a value greater than 0 to allow updates.-->
+      <age_limit>1500</age_limit> 
       <behavior>complex</behavior> <!--none, simple, or complex -->
       <!-- Diff command. Recommend -q option. required for complex caching. -->
       <diff>diff -q</diff>
