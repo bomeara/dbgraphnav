@@ -1,6 +1,7 @@
 #summary Installation Instructions
 
-= Install Script = You may check pre-requisites for the program by
+= Install Script = 
+You may check pre-requisites for the program by
 running setup.php and following the instructions there. Each time it
 stops, you should fix the error, and then reload the page to continue
 on to the next step.
