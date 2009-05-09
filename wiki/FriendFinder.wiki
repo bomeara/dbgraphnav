@@ -47,4 +47,4 @@ http://www.graphviz.org/doc/info/attrs.html
 The tag `<display_options_limited>` is a set of display options which
 are applied to a node when any of its children are removed from the graph by
 the limiting algorithm. These values over-ride all others when put
-into effect.
+into effect. 
