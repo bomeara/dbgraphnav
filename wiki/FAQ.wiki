@@ -2,7 +2,7 @@
 
 If your issue is not resolved here, please report it on the issue tracker. 
 
-= It's not working! (Installation help) =
+= It's not working! =
 
 Q: My server gives me this error:
 
