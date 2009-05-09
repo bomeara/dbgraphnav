@@ -39,4 +39,3 @@ All values are wrapped within a single dbgraphnav root tag.
     * display_options - default display options which are overriden by those in a type. Each attribute is a sub-element selected from this list: http://www.graphviz.org/doc/info/attrs.html
     * misc - misc. options which don't fit elsewhere.
       * wordwrap - split node display lines at this many characters
-
